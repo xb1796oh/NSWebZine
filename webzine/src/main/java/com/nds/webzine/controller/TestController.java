@@ -37,6 +37,7 @@ public class TestController {
 			e.printStackTrace();
 		}
 		model.addAttribute("newslist", newslist);
+		System.out.println("?");
 
 		return "index";
 	}
