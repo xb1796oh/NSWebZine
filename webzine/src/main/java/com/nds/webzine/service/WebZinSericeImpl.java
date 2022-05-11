@@ -127,6 +127,46 @@ public class WebZinSericeImpl implements WebZineService {
 	}
 	
 	@Override
+	public List<NDSNews> NSNewsList() throws Exception {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+
+		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("농심")) {
+				NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
+				newslist.add(news);
+			}
+			
+			if(newslist.size()==6) break;
+		}
+		
+		return newslist;
+	}
+
+	
+	@Override
 	public List<NDSNews> forNSPeopleList() throws Exception {
 		
 		String jsonString = apiJsonString();
@@ -203,6 +243,46 @@ public class WebZinSericeImpl implements WebZineService {
 			if(newslist.size()==6) break;
 		}
 		
+		return newslist;
+	}
+
+	@Override
+	public List<NDSNews> eventList() throws Exception {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+
+		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("이벤트") || title.contains("추천") || title.contains("경품") || title.contains("퀴즈")) {
+				NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
+				newslist.add(news);
+			}
+			
+			if(newslist.size()==6) break;
+		}
+		
+		System.out.println(newslist.size());
 		return newslist;
 	}
 

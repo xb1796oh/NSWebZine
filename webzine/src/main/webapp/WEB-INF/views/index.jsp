@@ -12,6 +12,9 @@
     <title>Newsbox - Modern Magazine &amp; Newspaper HTML Template</title>
     <link rel="icon" href="img/core-img/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -25,25 +28,17 @@
         </div>
     </div>
     
-    <!-- ##### Header Area Start ##### -->
+    <!-- Header -->
     <header class="header-area">
-        <!-- Navbar Area -->
         <div class="newsbox-main-menu">
             <div class="classy-nav-container breakpoint-off">
                 <div class="container-fluid">
-                    <!-- Menu -->
                     <nav class="classy-navbar justify-content-between" id="newsboxNav">
-
-                        <!-- Nav brand -->
                         <a href="http://localhost:8090/main" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
-
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
+						<div class="classy-navbar-toggler">
                             <span class="navbarToggler"><span></span><span></span><span></span></span>
                         </div>
-
-                        <!-- Menu -->
-                        <div class="classy-menu">
+						<div class="classy-menu">
                             <div class="classycloseIcon">
                                 <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                             </div>
@@ -53,70 +48,25 @@
                                 	<li><a href="#">login</a></li>
                                 </ul>
                             </div>
-
                         </div>
                     </nav>
                 </div>
             </div>
         </div>
     </header>
-    <!-- ##### Header Area End ##### -->
 
-
-
-
-
-
-    <!-- ##### Breaking News Area Start ##### -->
-    <!--
-    <section class="breaking-news-area">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    
-                    <div class="breaking-news-ticker d-flex flex-wrap align-items-center">
-                        <div class="title">
-                            <h6>Trending</h6>
-                        </div>
-                        <div id="breakingNewsTicker" class="ticker">
-                            <ul>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum.</a></li>
-                                <li><a href="#">Welcome to Colorlib Family.</a></li>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
-    <!-- ##### Breaking News Area End ##### -->
-
-    
-    <!-- ##### Video Area Start ##### -->
+    <!-- Video -->
     <section class=" bg-img bg-overlay bg-fixed" style="background-image:url(https://imgs.jobkorea.co.kr/img3/_thumb/0x390/Company/Visual_Co/images/2019/2/JK_CO_nscom0805_1.jpg);">
         <div class="container">
             <div class="row">
-                <!-- Featured Video Area -->
                 <div class="col-12">
-                    <div class="featured-video-area d-flex align-items-center justify-content-center">
-                        <!-- <div class="video-content text-center">
-                        	
-                            <a href="#" class="video-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
-                            <span class="published-date">June 20, 2018</span>
-                            <h3 class="video-title">Traffic Problems in Time Square</h3>
-                        </div>
-                        -->
-                    </div>
+                    <div class="featured-video-area d-flex align-items-center justify-content-center"></div>
                 </div>
             </div>
         </div>
-    
     </section>
-    <!-- ##### Video Area End ##### -->
 
-	<!-- ##### Top News Area Start ##### -->
+	<!-- Weekly News -->
     <div class="top-news-area section-padding-100">
         <div class="container">
             <div class="row">
@@ -148,17 +98,25 @@
             </div>
         </div>
     </div>
-    <!-- ##### Top News Area End ##### -->
 
-
-	 <!-- ##### Add Area Start ##### -->
+	<!-- Add -->
     <div class="big-add-area mb-100">
-        <div class="container-fluid">
-            <a href="#"><img src="img/bg-img/add2.png" alt=""></a>
+        <div class="container-fluid" style="width:1677px; height:237px; overflow: hidden; position:relative;">
+       		<div>
+       			<img src="https://www.hotelnongshim.com/kr/_Img/main_1540462725.jpg" style="position:absolute; top:-100%;" alt="" >
+       		</div>
+            <div style="position: absolute; op: 0px; width: 100%; height: 100%;">
+            	<div style="display:table; width:100%; height:100%;">
+            		<div style="display:table-row;">
+            			<div style="display: table-cell; vertical-align: middle; cursor:pointer;" onclick="location.href='http://www.hotelnongshim.com'">
+            				<p style="text-align: center; font-size:40px; color:white; font-family: 'Gowun Batang', serif;">그곳, 호텔농심</p>
+            				<p style="text-align: center; font-size:20px; color:white; font-family: 'Gowun Batang', serif;">신선한 공기와 맑은 온천수를 벗삼아 휴식을 취하는 곳 </p>
+            			</div>
+            		</div>
+            	</div>
+            </div>
         </div>
     </div>
-    <!-- ##### Add Area End ##### -->
-    
 
 	<!-- ##### Intro News Area Start ##### -->
     <section class=" section-padding-100-0 mb-70">
@@ -183,8 +141,8 @@
 
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav1">
-                                <div class="row">
-                                <c:forEach var="news" items="${newslist }">
+                                <div class="row detailrow">
+                                <c:forEach var="news" items="${detaillist }">
 									<!-- Single News Area -->
 									<div class="col-12 col-sm-6">
                     					<div class="single-blog-post style-2 mb-5">
@@ -256,9 +214,9 @@
 
                         <!-- Copywrite Text -->
                         <p class="copywrite-text"><a href="#">
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
             </div>
@@ -278,7 +236,139 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
-
+	
+	<script>
+	$(function(){
+		$(document).on('click', '#nav1', function(e){
+    		$.ajax({
+    			type:"post",
+    			dataType:"text",
+    			async: false,
+    			url:"${pageContext.request.contextPath}/NSnews",
+    			success: function(data, textStatus){ 
+    				var listData = JSON.parse(data);
+    				var NSnewsList = listData.list;
+    				
+    				$(".detailrow").remove();
+    				var rowdiv = '<div class="row detailrow"></div>';
+    				$("#nav-1").append(rowdiv);
+    				
+    				var NSNews = '';
+    				for(var i=0; i<NSnewsList.length; i++){
+    					NSNews += '<div class="col-12 col-sm-6">';
+    					NSNews += '<div class="single-blog-post style-2 mb-5">';
+    					NSNews += '<div class="blog-thumbnail">';
+    					NSNews += '<a href="' + NSnewsList[i].link + '"><img src="' + NSnewsList[i].thumbLink + '" alt=""></a>';
+    					NSNews += '</div>';
+    					NSNews += '<div class="blog-content">';
+    					NSNews += '<a href="' + NSnewsList[i].link + '" class="post-title">' + NSnewsList[i].title + '</a>';
+    					NSNews += '</div>';
+    					NSNews += '</div>';
+    					NSNews += '</div>';
+    				}
+    				
+    				$(".detailrow").append(NSNews);
+    			}
+    		});
+    	});
+    	$(document).on('click', '#nav2', function(e){
+    		$.ajax({
+    			type:"post",
+    			dataType:"text",
+    			async: false,
+    			url:"${pageContext.request.contextPath}/NSpeople",
+    			success: function(data, textStatus){ 
+    				var listData = JSON.parse(data);
+    				var NSpeopleList = listData.list;
+    				
+    				$(".detailrow").remove();
+    				var rowdiv = '<div class="row detailrow"></div>';
+    				$("#nav-1").append(rowdiv);
+    				
+    				var NSpeopleNews = '';
+    				for(var i=0; i<NSpeopleList.length; i++){
+    					NSpeopleNews += '<div class="col-12 col-sm-6">';
+    					NSpeopleNews += '<div class="single-blog-post style-2 mb-5">';
+    					NSpeopleNews += '<div class="blog-thumbnail">';
+    					NSpeopleNews += '<a href="' + NSpeopleList[i].link + '"><img src="' + NSpeopleList[i].thumbLink + '" alt=""></a>';
+    					NSpeopleNews += '</div>';
+    					NSpeopleNews += '<div class="blog-content">';
+    					NSpeopleNews += '<a href="' + NSpeopleList[i].link + '" class="post-title">' + NSpeopleList[i].title + '</a>';
+    					NSpeopleNews += '</div>';
+    					NSpeopleNews += '</div>';
+    					NSpeopleNews += '</div>';
+    				}
+    				
+    				$(".detailrow").append(NSpeopleNews);
+    			}
+    		});
+    	});
+    	$(document).on('click', '#nav3', function(e){
+    		$.ajax({
+    			type:"post",
+    			dataType:"text",
+    			async: false,
+    			url:"${pageContext.request.contextPath}/NSwith",
+    			success: function(data, textStatus){ 
+    				var listData = JSON.parse(data);
+    				var NSwithsList = listData.list;
+    				
+    				$(".detailrow").remove();
+    				var rowdiv = '<div class="row detailrow"></div>';
+    				$("#nav-1").append(rowdiv);
+    				
+    				var NSwithsNews = '';
+    				for(var i=0; i<NSwithsList.length; i++){
+    					NSwithsNews += '<div class="col-12 col-sm-6">';
+    					NSwithsNews += '<div class="single-blog-post style-2 mb-5">';
+    					NSwithsNews += '<div class="blog-thumbnail">';
+    					NSwithsNews += '<a href="' + NSwithsList[i].link + '"><img src="' + NSwithsList[i].thumbLink + '" alt=""></a>';
+    					NSwithsNews += '</div>';
+    					NSwithsNews += '<div class="blog-content">';
+    					NSwithsNews += '<a href="' + NSwithsList[i].link + '" class="post-title">' + NSwithsList[i].title + '</a>';
+    					NSwithsNews += '</div>';
+    					NSwithsNews += '</div>';
+    					NSwithsNews += '</div>';
+    				}
+    				
+    				$(".detailrow").append(NSwithsNews);
+    			}
+    		});
+    	});
+    	$(document).on('click', '#nav4', function(e){
+    		$.ajax({
+    			type:"post",
+    			dataType:"text",
+    			async: false,
+    			url:"${pageContext.request.contextPath}/NSevents",
+    			success: function(data, textStatus){ 
+    				var listData = JSON.parse(data);
+    				var NSeventsList = listData.list;
+    				
+    				$(".detailrow").remove();
+    				var rowdiv = '<div class="row detailrow"></div>';
+    				$("#nav-1").append(rowdiv);
+    				
+    				var NSeventsNews = '';
+    				for(var i=0; i<NSeventsList.length; i++){
+    					NSeventsNews += '<div class="col-12 col-sm-6">';
+    					NSeventsNews += '<div class="single-blog-post style-2 mb-5">';
+    					NSeventsNews += '<div class="blog-thumbnail">';
+    					NSeventsNews += '<a href="' + NSeventsList[i].link + '"><img src="' + NSeventsList[i].thumbLink + '" alt=""></a>';
+    					NSeventsNews += '</div>';
+    					NSeventsNews += '<div class="blog-content">';
+    					NSeventsNews += '<a href="' + NSeventsList[i].link + '" class="post-title">' + NSeventsList[i].title + '</a>';
+    					NSeventsNews += '</div>';
+    					NSeventsNews += '</div>';
+    					NSeventsNews += '</div>';
+    				}
+    				
+    				$(".detailrow").append(NSeventsNews);
+    			}
+    		});
+    	});
+	});
+	</script>
 
 </body>
 </html>
