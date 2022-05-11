@@ -9,25 +9,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Newsbox - Modern Magazine &amp; Newspaper HTML Template</title>
+    <title>NSZine</title>
     <link rel="icon" href="img/core-img/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 </head>
-<body>
-
-	<!-- Preloader -->
-   	<div class="preloader d-flex align-items-center justify-content-center">
-    	<div class="lds-ellipsis">
-        	<div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-    
+<body>    
     <!-- Header -->
     <header class="header-area">
         <div class="newsbox-main-menu">
@@ -45,7 +34,7 @@
                             <div class="classynav">
                                 <ul>
                                 	<li><a>Weekly News</a></li>
-                                	<li><a href="#">login</a></li>
+                                	<li><a href="${pageContext.request.contextPath}/login">login</a></li>
                                 </ul>
                             </div>
                         </div>

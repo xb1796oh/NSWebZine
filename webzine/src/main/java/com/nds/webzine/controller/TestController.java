@@ -31,7 +31,7 @@ public class TestController {
 	@Autowired
 	WebZineService apiservice;
 
-	@GetMapping("main")
+	@GetMapping({"/", "/main"})
 	public String main(Model model) {
 		
 		List<NDSNews> newslist = null;
@@ -46,6 +46,11 @@ public class TestController {
 		model.addAttribute("detaillist", detaillist);
 
 		return "index";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
 	}
 	
 	
