@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nds.webzine.dto.NDSNews;
+import com.nds.webzine.service.MemberService;
 import com.nds.webzine.service.WebZineService;
 
 @Controller
@@ -30,6 +31,9 @@ public class TestController {
 	
 	@Autowired
 	WebZineService apiservice;
+	
+	@Autowired
+	MemberService memberservice;
 
 	@GetMapping({"/", "/main"})
 	public String main(Model model) {
@@ -44,7 +48,7 @@ public class TestController {
 		}
 		model.addAttribute("newslist", newslist);
 		model.addAttribute("detaillist", detaillist);
-
+	
 		return "index";
 	}
 	
