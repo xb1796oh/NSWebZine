@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nds.webzine.dto.NDSNews;
@@ -36,8 +40,11 @@ public class TestController {
 	MemberService memberservice;
 
 	@GetMapping({"/", "/main"})
-	public String main(Model model) {
+	public String main(Model model, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+				
 		List<NDSNews> newslist = null;
 		List<NDSNews> detaillist = null;
 		try {
@@ -46,15 +53,48 @@ public class TestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("id", id);
 		model.addAttribute("newslist", newslist);
 		model.addAttribute("detaillist", detaillist);
-	
+		
 		return "index";
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		model.addAttribute("id", id);
+		
 		return "login";
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/logout")
+	public void logout(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("id");
+	}
+	
+	@ResponseBody
+	@PostMapping("/loginCheck")
+	public String loginCheck(@RequestParam Map<String, String> login, HttpServletRequest request) {
+		
+		String result = "";
+		try {
+			result = memberservice.memberCheck(login);
+			if(result=="true") {
+				HttpSession session = request.getSession();
+				session.setAttribute("id", login.get("id"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	

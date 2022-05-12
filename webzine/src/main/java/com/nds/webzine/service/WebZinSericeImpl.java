@@ -15,12 +15,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.nds.webzine.dto.NDSNews;
 
 @Service
 public class WebZinSericeImpl implements WebZineService {
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
 	
 	private String apiJsonString() {
 		String apiUrl = "https://nzin.nongshim.com/api/nz_webzine.php?rows=300&type=json";
@@ -284,6 +290,19 @@ public class WebZinSericeImpl implements WebZineService {
 		
 		System.out.println(newslist.size());
 		return newslist;
+	}
+
+	
+	
+	@Override
+	public void subscribeMail() {
+		
+		SimpleMailMessage simpleMessage = new SimpleMailMessage();
+		simpleMessage.setTo("vhqlgkxm24@naver.com");
+		simpleMessage.setSubject("sample");
+		simpleMessage.setText("text");
+		
+		javaMailSender.send(simpleMessage);
 	}
 
 	

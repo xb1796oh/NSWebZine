@@ -10,4 +10,6 @@ public interface WebZineService {
 	public List<NDSNews> forNSPeopleList() throws Exception;	// 농심인뉴스
 	public List<NDSNews> withList() throws Exception;			// 봉사
 	public List<NDSNews> eventList() throws Exception;			// 이벤트
+	
+	public void subscribeMail();
 }
