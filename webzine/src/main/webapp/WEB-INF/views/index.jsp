@@ -15,6 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+	<style>
+		.pointer { cursor:pointer; }
+	</style>
 </head>
 <body>    
     <!-- Header -->
@@ -33,8 +36,17 @@
                             </div>
                             <div class="classynav">
                                 <ul>
-                                	<li><a>Weekly News</a></li>
-                                	<li><a href="${pageContext.request.contextPath}/login">login</a></li>
+                                	<li><a class="pointer">Weekly News</a></li>
+                                	<li>
+                                		<c:choose >
+                                			<c:when test="${id eq null }">
+                                				<a href="${pageContext.request.contextPath}/login" class="pointer">login</a>
+                                			</c:when>
+                                			<c:otherwise>
+                                				<a id="logout" class="pointer">logout</a>
+                                			</c:otherwise>
+                                		</c:choose>
+                                	</li>
                                 </ul>
                             </div>
                         </div>
@@ -156,9 +168,9 @@
                         <!-- Newsletter Widget -->
                         <div class="single-widget-area newsletter-widget mb-30">
                             <h4>Subscribe to our newsletter</h4>
-                            <form action="#" method="post">
+                            <form action="" method="post">
                                 <input type="email" name="nl-email" id="nlemail" placeholder="Your E-mail">
-                                <button type="submit" class="btn newsbox-btn w-100">Subscribe</button>
+                                <button id="subscribe" type="submit" class="btn newsbox-btn w-100">Subscribe</button>
                             </form>
                             <p class="mt-30">Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh . volutpat lobortis.</p>
                         </div>
@@ -353,6 +365,26 @@
     				}
     				
     				$(".detailrow").append(NSeventsNews);
+    			}
+    		});
+    	});
+    	
+    	$(document).on('click', '#subscribe', function(e){
+    		var uid = '<%=(String)session.getAttribute("id")%>';
+    		console.log(uid);
+    		if(uid=="null"){
+    			alert("로그인 후 사용 가능합니다");
+    			event.preventDefault();
+    		}
+    	});
+    	
+    	$(document).on('click', '#logout', function(e){
+    		$.ajax({
+    			type:"post",
+    			async: false,
+    			url:"${pageContext.request.contextPath}/logout",
+    			success: function(data, textStatus){ 
+    				event.preventDefault();
     			}
     		});
     	});

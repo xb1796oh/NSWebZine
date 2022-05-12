@@ -3,10 +3,17 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nds.webzine.dao.MemberDAO">
 
-
+	<!-- mysql 연결 test -->
 	<select id="selectMember" resultType="com.nds.webzine.dto.Member" >
 		<![CDATA[
 			select * from member where id="1234"
+		]]>
+	</select>
+	
+	<!-- login 회원 정보 check -->
+	<select id="memberCheck" parameterType="map" resultType="boolean">
+		<![CDATA[
+			select EXISTS (select * from member where id=#{id} and password=#{password} limit 1) as success;
 		]]>
 	</select>
 	

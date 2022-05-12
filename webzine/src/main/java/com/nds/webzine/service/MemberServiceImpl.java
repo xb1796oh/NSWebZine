@@ -1,5 +1,7 @@
 package com.nds.webzine.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,13 @@ public class MemberServiceImpl implements MemberService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(mem.getEmail());
+		
 		return mem;
 	}
 
+	@Override
+	public String memberCheck(Map<String, String> login) throws Exception {
+		if(memberDAO.memberCheck(login)==true) return "true";
+		else return "false";
+	}
 }

@@ -85,24 +85,12 @@
                     <div class="contact-content mb-100">
 						<!-- Contact Form Area -->
                         <div class="contact-form-area mb-70">
-                            <h4 class="mb-50">Login</h4>
-                            <form action="#" method="post">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="name" placeholder="Id">
-                                        </div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="email" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn newsbox-btn btn-2 mt-30" type="submit">Login</button>
-                                    </div>
-                                </div>
-                            </form>
+                        	<h4 class="mb-50">Login</h4>
+                            <div class="row">
+                            	<div class="col-8"><div class="form-group"><input type="text" class="form-control" id="id" placeholder="Id"></div></div>
+                                <div class="col-8"><div class="form-group"><input type="password" class="form-control" id="password" placeholder="Password"></div></div>
+                                <div class="col-12"><button class="btn newsbox-btn btn-2 mt-30" id="loginBtn">Login</button></div>
+                        	</div>
                         </div>
                     </div>
                 </div>
@@ -113,7 +101,7 @@
                         <h4>Subscribe to our newsletter</h4>
                         <form action="#" method="post">
                             <input type="email" name="nl-email" id="nlemail" placeholder="Your E-mail">
-                            <button type="submit" class="btn newsbox-btn w-100">Subscribe</button>
+                            <button id="subscribe" type="submit" class="btn newsbox-btn w-100">Subscribe</button>
                         </form>
                         <p class="mt-30">Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh . volutpat lobortis.</p>
                     </div>
@@ -188,6 +176,42 @@
     $(function(){
     	$(".wiper-slide").hide();
     	$(".swiper-slide-active").show();
+    	
+    	$(document).on('click', '#subscribe', function(e){
+    		var uid = '<%=(String)session.getAttribute("id")%>';
+    		console.log(uid);
+    		if(uid=="null"){
+    			alert("로그인 후 사용 가능합니다");
+    			event.preventDefault();
+    		}
+    	});
+    	
+    	$(document).on('click', '#loginBtn', function(e){
+    		if($("#id").val()==""){
+    			alert("아이디를 입력하세요.");
+    			return;
+    		} else if($("#password").val()==""){
+    			alert("비밀번호를 입력하세요.");
+    			return;
+    		} else {
+    			$.ajax({
+        			type:"post",
+        			async: false,
+        			data : {"id":$("#id").val(), "password" : $("#password").val()},
+        			url:"${pageContext.request.contextPath}/loginCheck",
+        			success: function(data, textStatus){ 
+        				if(data=="false"){
+        					alert("아이디 혹은 비밀번호가 틀렸습니다.");
+        					$("#id").val("");
+        					$("#password").val("");
+        					$("#id").focus();
+        				} else{
+        					location.href = '${pageContext.request.contextPath}/';
+        				}
+        			}
+        		});
+    		}
+    	});
     });
     </script>
     
