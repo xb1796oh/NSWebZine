@@ -90,12 +90,9 @@
                 	</div>
 				</c:forEach>
 				
-                <div class="col-12">
-                    <div class="load-more-button text-center">
-                        <a href="#" class="btn newsbox-btn">Load More</a>
-                    </div>
-                </div>
-
+				<div class="col-12">
+					<p class="pointer" style="float:right;"><a href="#">show more   >></a></p>
+				</div>
             </div>
         </div>
     </div>
@@ -157,6 +154,9 @@
                 					</div>
 								</c:forEach>
                             	</div>
+							</div>
+							<div class="col-12">
+								<p class="pointer" style="float:right;"><a href="#">show more   >></a></p>
 							</div>
                     	</div>
                 	</div>
