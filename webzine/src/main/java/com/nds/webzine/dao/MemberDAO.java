@@ -12,4 +12,5 @@ import com.nds.webzine.dto.Member;
 public interface MemberDAO {
 	public Member selectMember() throws Exception;
 	public boolean memberCheck(Map<String, String> map) throws Exception;
+	public void updateSubscribe(Map<String, Object> map) throws Exception;
 }

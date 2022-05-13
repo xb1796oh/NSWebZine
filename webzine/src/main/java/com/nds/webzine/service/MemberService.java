@@ -8,4 +8,5 @@ public interface MemberService {
 	public Member test();
 	
 	public String memberCheck(Map<String, String> login) throws Exception;	
+	public void subscribe(String id, String email) throws Exception;	
 }

@@ -1,5 +1,6 @@
 package com.nds.webzine.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,14 @@ public class MemberServiceImpl implements MemberService {
 		if(memberDAO.memberCheck(login)==true) return "true";
 		else return "false";
 	}
+
+	@Override
+	public void subscribe(String id, String email) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("email", email);
+		memberDAO.updateSubscribe(map);
+	}
+	
+	
 }

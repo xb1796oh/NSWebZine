@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -60,7 +61,7 @@ public class TestController {
 		return "index";
 	}
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
@@ -95,6 +96,22 @@ public class TestController {
 		}
 		
 		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/subscribe")
+	public void subscribe(HttpServletRequest request, @RequestParam(value="email") String email) {
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		
+		// 이메일 update
+		try {
+			memberservice.subscribe(id, email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

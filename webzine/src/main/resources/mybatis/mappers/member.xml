@@ -16,5 +16,12 @@
 			select EXISTS (select * from member where id=#{id} and password=#{password} limit 1) as success;
 		]]>
 	</select>
+		
+	<!-- 구독서비스 신청 및 이메일 등록 -->
+	<update id="updateSubscribe" parameterType="map">
+		<![CDATA[
+			update member set email=#{email}, subscribe=true where id=#{id}
+		]]>
+	</update>
 	
 </mapper>
