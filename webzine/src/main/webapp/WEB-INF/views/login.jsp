@@ -25,32 +25,7 @@
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header-area">
-        <div class="newsbox-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container-fluid">
-                    <nav class="classy-navbar justify-content-between" id="newsboxNav">
-                        <a href="http://localhost:8090/main" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
-						<div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-						<div class="classy-menu">
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-                            <div class="classynav">
-                                <ul>
-                                	<li><a>Weekly News</a></li>
-                                	<li><a href="${pageContext.request.contextPath}/login">login</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
+    <jsp:include page="header.jsp" flush="true"/>
     
     <!-- ##### Breaking News Area Start ##### -->
     <section class="breaking-news-area clearfix">
@@ -77,7 +52,7 @@
     <!-- ##### Breaking News Area End ##### -->
     
     <!-- ##### Contact Area Start ##### -->
-    <section class="contact-area section-padding-100">
+    <section class="section-padding-100-0 mb-70">
         <div class="container">
             <div class="row justify-content-center">
 
@@ -94,65 +69,64 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-12 col-sm-9 col-md-6 col-lg-4">
-                    <!-- Newsletter Widget -->
-                    <div class="single-widget-area newsletter-widget mb-30">
-                        <h4>Subscribe to our newsletter</h4>
-                        <form action="#" method="post">
-                            <input type="email" name="nl-email" id="nlemail" placeholder="Your E-mail">
-                            <button id="subscribe" type="submit" class="btn newsbox-btn w-100">Subscribe</button>
-                        </form>
-                        <p class="mt-30">Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh . volutpat lobortis.</p>
-                    </div>
-
-                    <!-- Add Widget -->
-                    <div id="slide" class="mySwiper add-widget mb-30" style="position: relative; overflow:hidden; cursor:pointer;" onclick="location.href='https://www.ildonglakes.co.kr:8443/'">
-                    	<div style="position: absolute; op: 0px; width: 100%; height: 100%;">
+                
+                
+                <!-- Sidebar Widget -->
+                <div class="col-12 col-sm-9 col-md-6 col-lg-4" style="margin-top:50px; ">
+                    <div id="slide" class="mySwiper add-widget mb-30" style="position: relative; overflow:hidden; cursor:pointer;" onclick="location.href='https://www.ildonglakes.co.kr:8443/'">                   	
+                    	<!-- slide image -->
+                    	<div class="swiper-wrapper">
+                    		<div class="swiper-slide">
+                        		<img id="add1" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140609_62.JPG" />
+                    		</div>
+                    		<div class="swiper-slide">
+                    			<img id="add2" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140504_58.JPG" />
+                    		</div>
+                    		<div class="swiper-slide">
+                    			<img id="add3" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140443_57.JPG" />
+                    		</div>
+                    		<div class="swiper-slide">
+                    			<img id="add4" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140543_60.JPG" />
+                    		</div>
+                    		<div class="swiper-slide">
+                    			<img id="add5" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140412_55.JPG" />
+                    		</div>
+                    		<div class="swiper-slide">
+                    			<img id="add6" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140518_59.JPG" />
+                    		</div>
+                    		<div class="swiper-slide">
+                    			<img id="add7" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140555_61.JPG" />
+                    		</div>
+                    	</div>
+                    	
+                    	<!-- slide title -->
+                    	<div style="position: absolute; top: 0px; width: 100%; height: 100%; z-index:1;">
             				<div style="display:table; width:100%; height:100%;">
             					<div style="display:table-row;">
-            						<div style="display: table-cell; vertical-align: middle;">
-            							<h3>hello...</h3>
-            							<p style="text-align: center; font-size:20px; color:white; font-family: 'Gowun Batang', serif; z-index:100;">일동레이크 골프클럽</p>
-            							<p style="text-align: center; font-size:30px; color:black; font-family: 'Gowun Batang', serif; z-index:100;">골프클럽 그 이상의 의미</p>
+            						<div style="display: table-cell; vertical-align: middle; text-align: center; cursor:pointer;" onclick="location.href='http://www.hotelnongshim.com'">
+            							<span style="font-size:20px; color:white; font-family: 'Gowun Batang', serif; z-index:2;">일동 레이크 골프클럽</span><br>
+            							<span style="font-size:30px; color:white; font-family: 'Gowun Batang', serif; z-index:2;"><b>골프클럽</b> 그 이상의 <b>의미</b></span>
             						</div>
             					</div>
             				</div>
             			</div>
-                    	
-                    	<div class="swiper-wrapper">
-                    		<div class="swiper-slide">
-                        		<img id="add1" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140609_62.JPG" alt="">
-                    		</div>
-                    		<div class="swiper-slide">
-                    			<img id="add2" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140504_58.JPG" alt="">
-                    		</div>
-                    		<div class="swiper-slide">
-                    			<img id="add3" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140443_57.JPG" alt="">
-                    		</div>
-                    		<div class="swiper-slide">
-                    			<img id="add4" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140543_60.JPG" alt="">
-                    		</div>
-                    		<div class="swiper-slide">
-                    			<img id="add5" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140412_55.JPG" alt="">
-                    		</div>
-                    		<div class="swiper-slide">
-                    			<img id="add6" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140518_59.JPG" alt="">
-                    		</div>
-                    		<div class="swiper-slide">
-                    			<img id="add7" src="https://www.ildonglakes.co.kr:8443/static/GALLERY/20211109140555_61.JPG" alt="">
-                    		</div>
-                    	</div>
                     </div>
-                </div>
+                </div>     
             </div>
         </div>
     </section>
-    <!-- ##### Contact Area End ##### -->
     
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
    
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <!-- Initialize Swiper -->
     <script>
       var swiper = new Swiper(".mySwiper", {
         //spaceBetween: 30,

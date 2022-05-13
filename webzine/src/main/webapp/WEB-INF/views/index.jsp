@@ -15,47 +15,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	
 	<style>
 		.pointer { cursor:pointer; }
 	</style>
 </head>
 <body>    
-    <!-- Header -->
-    <header class="header-area">
-        <div class="newsbox-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container-fluid">
-                    <nav class="classy-navbar justify-content-between" id="newsboxNav">
-                        <a href="http://localhost:8090/main" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
-						<div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-						<div class="classy-menu">
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-                            <div class="classynav">
-                                <ul>
-                                	<li><a class="pointer">Weekly News</a></li>
-                                	<li>
-                                		<c:choose >
-                                			<c:when test="${id eq null }">
-                                				<a href="${pageContext.request.contextPath}/login" class="pointer">login</a>
-                                			</c:when>
-                                			<c:otherwise>
-                                				<a id="logout" class="pointer">logout</a>
-                                			</c:otherwise>
-                                		</c:choose>
-                                	</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-
+    <jsp:include page="header.jsp" flush="true"/>
+    
     <!-- Video -->
     <section class=" bg-img bg-overlay bg-fixed" style="background-image:url(https://imgs.jobkorea.co.kr/img3/_thumb/0x390/Company/Visual_Co/images/2019/2/JK_CO_nscom0805_1.jpg);">
         <div class="container">
@@ -78,6 +47,7 @@
             
 				<c:forEach var="news" items="${newslist }">
 					<!-- Single News Area -->
+					
 					<div class="col-12 col-sm-6 col-lg-4">
                     	<div class="single-blog-post style-2 mb-5">
                         	<div class="blog-thumbnail">
@@ -168,11 +138,21 @@
                         <!-- Newsletter Widget -->
                         <div class="single-widget-area newsletter-widget mb-30">
                             <h4>Subscribe to our newsletter</h4>
-                            <form action="" method="post">
+                            <br>
+                            <div class="single-skils-area">
+                            	<div id="circle" class="circle" data-value="0.75">
+                                	<div class="skills-text"><span>75%</span></div>
+                                </div>
+                                <p style="font-size:20px;">subscribers</p>
+                        	</div>
+                            <br><br><br>
+                            
+                            <form action="/subscribe" method="post" id="subscribeForm">
                                 <input type="email" name="nl-email" id="nlemail" placeholder="Your E-mail">
-                                <button id="subscribe" type="submit" class="btn newsbox-btn w-100">Subscribe</button>
                             </form>
-                            <p class="mt-30">Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh . volutpat lobortis.</p>
+                                <button id="subscribe" type="submit" class="btn newsbox-btn w-100">Subscribe</button><br><br><br>
+                            	<span ><input type="checkbox" id="subCheck" style="width:25px;height:25px;" checked></span><span style="vertical-align:top; margin-left:10px;">이메일 구독서비스 신청에 동의하십니까?</span>
+                            
                         </div>
                     </div>
                 </div>
@@ -371,10 +351,29 @@
     	
     	$(document).on('click', '#subscribe', function(e){
     		var uid = '<%=(String)session.getAttribute("id")%>';
-    		console.log(uid);
+    		
     		if(uid=="null"){
     			alert("로그인 후 사용 가능합니다");
+    			$("#subscribeForm").attr("action","/login");	//로그인 화면 이동
+    			$("#subscribeForm").submit();
+    		} else if($("#nlemail").val()==""){
+    			alert("이메일을 입력해주세요.");
     			event.preventDefault();
+    		} else if(!$("#subCheck").is(':checked')){
+    			alert("구독 서비스 동의 체크박스를 체크해주세요");
+    			event.preventDefault();
+    		} else{
+    			$.ajax({
+        			type:"post",
+        			async: false,
+        			data : {"email": $("#nlemail").val()},
+        			url:"${pageContext.request.contextPath}/subscribe",
+        			success: function(data, textStatus){ 
+        				alert("구독 신청이 완료되었습니다.");
+        				$("#nlemail").val("");
+        				event.preventDefault();
+        			}
+        		});
     		}
     	});
     	
