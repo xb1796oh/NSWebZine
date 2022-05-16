@@ -61,7 +61,7 @@
 				</c:forEach>
 				
 				<div class="col-12">
-					<p class="pointer" style="float:right;"><a href="#">show more   >></a></p>
+					<p class="pointer" style="float:right;"><a href="${pageContext.request.contextPath}/newslist?section=nav1&page=1">show more   >></a></p>
 				</div>
             </div>
         </div>
@@ -99,10 +99,10 @@
                             <h6>All the news</h6>
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav1" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">NS News</a>
-                                    <a class="nav-item nav-link" id="nav2" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">NS People</a>
-                                    <a class="nav-item nav-link" id="nav3" data-toggle="tab" href="#nav-3" role="tab" aria-controls="nav-3" aria-selected="false">With</a>
-                                    <a class="nav-item nav-link" id="nav4" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-4" aria-selected="false">Events</a>
+                                    <a class="nav-item nav-link active" id="nav2" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">NS News</a>
+                                    <a class="nav-item nav-link" id="nav3" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">NS People</a>
+                                    <a class="nav-item nav-link" id="nav4" data-toggle="tab" href="#nav-3" role="tab" aria-controls="nav-3" aria-selected="false">With</a>
+                                    <a class="nav-item nav-link" id="nav5" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-4" aria-selected="false">Events</a>
                                 </div>
                             </nav>
                         </div>
@@ -126,7 +126,7 @@
                             	</div>
 							</div>
 							<div class="col-12">
-								<p class="pointer" style="float:right;"><a href="#">show more   >></a></p>
+								<p class="pointer" style="float:right;"><a onclick="showMore();">show more   >></a></p>
 							</div>
                     	</div>
                 	</div>
@@ -150,8 +150,8 @@
                             <form action="/subscribe" method="post" id="subscribeForm">
                                 <input type="email" name="nl-email" id="nlemail" placeholder="Your E-mail">
                             </form>
-                                <button id="subscribe" type="submit" class="btn newsbox-btn w-100">Subscribe</button><br><br><br>
-                            	<span ><input type="checkbox" id="subCheck" style="width:25px;height:25px;" checked></span><span style="vertical-align:top; margin-left:10px;">이메일 구독서비스 신청에 동의하십니까?</span>
+                            <button id="subscribe" type="submit" class="btn newsbox-btn w-100">Subscribe</button><br><br><br>
+                           	<span ><input type="checkbox" id="subCheck" style="width:25px;height:25px;" checked></span><span style="vertical-align:top; margin-left:10px;">이메일 구독서비스 신청에 동의하십니까?</span>
                             
                         </div>
                     </div>
@@ -219,8 +219,15 @@
     <script src="js/active.js"></script>
 	
 	<script>
+	
+	var section = 'nav2';
+	
+	function showMore(){
+		location.href = "${pageContext.request.contextPath}/newslist?section=" + section + "&page=1";
+	}
+	
 	$(function(){
-		$(document).on('click', '#nav1', function(e){
+		$(document).on('click', '#nav2', function(e){
     		$.ajax({
     			type:"post",
     			dataType:"text",
@@ -248,11 +255,12 @@
     					NSNews += '</div>';
     				}
     				
+    				section = 'nav2';
     				$(".detailrow").append(NSNews);
     			}
     		});
     	});
-    	$(document).on('click', '#nav2', function(e){
+    	$(document).on('click', '#nav3', function(e){
     		$.ajax({
     			type:"post",
     			dataType:"text",
@@ -280,11 +288,12 @@
     					NSpeopleNews += '</div>';
     				}
     				
+    				section = 'nav3';
     				$(".detailrow").append(NSpeopleNews);
     			}
     		});
     	});
-    	$(document).on('click', '#nav3', function(e){
+    	$(document).on('click', '#nav4', function(e){
     		$.ajax({
     			type:"post",
     			dataType:"text",
@@ -312,11 +321,12 @@
     					NSwithsNews += '</div>';
     				}
     				
+    				section = 'nav4';
     				$(".detailrow").append(NSwithsNews);
     			}
     		});
     	});
-    	$(document).on('click', '#nav4', function(e){
+    	$(document).on('click', '#nav5', function(e){
     		$.ajax({
     			type:"post",
     			dataType:"text",
@@ -344,6 +354,7 @@
     					NSeventsNews += '</div>';
     				}
     				
+    				section = 'nav5';
     				$(".detailrow").append(NSeventsNews);
     			}
     		});
