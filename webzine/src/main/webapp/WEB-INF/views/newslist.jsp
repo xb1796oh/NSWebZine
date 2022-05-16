@@ -18,6 +18,9 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- slides -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 </head>
 
@@ -25,7 +28,7 @@
 
     <jsp:include page="header.jsp" flush="true"/>
     
-    <!-- ##### Breaking News Area Start ##### -->
+    <!-- ##### Breaking News Area ##### -->
     <section class="breaking-news-area clearfix">
         <div class="container-fluid">
             <div class="row">
@@ -47,27 +50,32 @@
             </div>
         </div>
     </section>
-    <!-- ##### Breaking News Area End ##### -->
     
-    <!-- ##### Catagory Featured Area Start ##### -->
-    <div class="catagory-featured-post bg-overlay clearfix" style="background-image: url(img/bg-img/23.jpg)">
-        <div class="container-fluid h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12 col-lg-9">
-                    <!-- Post Content -->
-                    <div class="post-content">
-                        <p class="tag"><span>Entertainment</span></p>
-                        <a href="#" class="post-title">Top 10 <br>Summer Festivals</a>
-                        <p>Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. Proin ac urna at lectus volutpat lobortis. Vestibulum venenatis iaculis diam vitae lobortis. Donec tincidunt viverra elit, sed consectetur est pr etium ac. Mauris nec mauris tellus. </p>
-                        <span class="post-date">June 20, 2018</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- ##### Catagory Featured Area ##### -->
+    <div class="catagory-featured-post clearfix"  style="background-color:white;">  
+    	 <div id="slide" class="mySwiper add-widget mb-30" style="position: relative; overflow:hidden; cursor:pointer;" onclick="location.href='http://brand.nongshim.com/shop/index'">                   	
+			<!-- slide image -->
+            <div class="swiper-wrapper">
+                 <div class="swiper-slide">
+                 	<img id="add1" src="http://image.nongshim.com/brand/info/1647993897626.jpg" />
+                 </div>
+                 <div class="swiper-slide">
+                 	<img id="add2" src="http://image.nongshim.com/brand/info/1647993716687.jpg" />
+                 </div>
+                 <div class="swiper-slide">
+                 	<img id="add3" src="http://image.nongshim.com/brand/info/1645745485475.jpg" />
+                 </div>
+                 <div class="swiper-slide">
+                  	<img id="add4" src="http://image.nongshim.com/brand/info/1652146133802.jpg" />
+                 </div>
+                 <div class="swiper-slide">
+                 	<img id="add5" src="http://image.nongshim.com/brand/info/1649925683889.jpg" />
+                 </div>
+     		</div>
+   	 	</div>
     </div>
-    <!-- ##### Catagory Featured Area End ##### -->
     
-    <!-- ##### Intro News Area Start ##### -->
+    <!-- ##### Intro News Area ##### -->
     <section class="intro-news-area section-padding-100-0 mb-70">
         <div class="container">
             <div class="row justify-content-center">
@@ -79,7 +87,7 @@
                             <h6>All the news</h6>
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link" id="nav1" href="${pageContext.request.contextPath}/newslist?section=nav1&page=1" aria-selected="true">주간영상뉴스</a>
+                                    <a class="nav-item nav-link" id="nav1" href="${pageContext.request.contextPath}/newslist?section=nav1&page=1" aria-selected="true">WEEKLY</a>
                                     <a class="nav-item nav-link" id="nav2" href="${pageContext.request.contextPath}/newslist?section=nav2&page=1">NS NEWS</a>
                                     <a class="nav-item nav-link" id="nav3" href="${pageContext.request.contextPath}/newslist?section=nav3&page=1">NS PEOPLE</a>
                                     <a class="nav-item nav-link" id="nav4" href="${pageContext.request.contextPath}/newslist?section=nav4&page=1" aria-selected="false">WITH</a>
@@ -140,9 +148,7 @@
         
         </div>
     </section>
-    <!-- ##### Intro News Area End ##### -->
     
-   
 
 	<!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
@@ -155,5 +161,32 @@
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+    var swiper = new Swiper(".mySwiper", {
+        //spaceBetween: 30,
+        centeredSlides: true,
+        freeMode : false,
+        autoplay: {
+          delay: 2500,
+          
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    
+    $(function(){
+    	$(".wiper-slide").hide();
+    	$(".swiper-slide-active").show();
+    });
+    </script>
 </body>
 </html>

@@ -37,7 +37,7 @@
                             </div>
                             <div class="classynav">
                                 <ul>
-                                	<li><a class="pointer">Weekly News</a></li>
+                                	<li><a class="pointer" href="${pageContext.request.contextPath}/newslist?section=nav1&page=1">All News</a></li>
                                 	<li>
                                 		<c:choose >
                                 			<c:when test="${id eq null }">

@@ -43,7 +43,7 @@ public class TestController {
 	@Autowired
 	MemberService memberservice;
 
-	@GetMapping({"/", "/main"})
+	@RequestMapping({"/", "/main"})
 	public String main(Model model, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
@@ -64,7 +64,7 @@ public class TestController {
 		return "index";
 	}
 	
-	@GetMapping("/newslist")
+	@RequestMapping("/newslist")
 	public ModelAndView newslist(@RequestParam(value="section", required=false) String section, @RequestParam(value="page",required=false) int page) {
 		ModelAndView mv = new ModelAndView("newslist");
   		List<NDSNews> newsList = null;
@@ -114,7 +114,7 @@ public class TestController {
 	
 
 	
-	@PostMapping("/login")
+	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
