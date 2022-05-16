@@ -19,6 +19,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nds.webzine.dto.NDSNews;
+import com.nds.webzine.dto.PageInfo;
 import com.nds.webzine.service.MemberService;
 import com.nds.webzine.service.WebZineService;
 
@@ -60,6 +63,47 @@ public class TestController {
 		
 		return "index";
 	}
+	
+	@GetMapping("/newslist")
+	public ModelAndView newslist(@RequestParam(value="section",required=false, defaultValue = "nav1") String section, @RequestParam(value="page",required=false, defaultValue = "1") int page) {
+		ModelAndView mv = new ModelAndView("newslist");
+  		List<NDSNews> newsList = null;
+  		
+		try {
+			switch(section) {
+			case "nav1":
+				newsList = apiservice.weeklyNewsList();
+				mv.addObject("newslist", newsList);
+				break;
+			case "nav2":
+				newsList = apiservice.NSNewsList();
+				mv.addObject("newslist", newsList);
+				break;
+			case "nav3":
+				newsList = apiservice.forNSPeopleList();
+				mv.addObject("newslist", newsList);
+				break;
+			case "nav4":
+				newsList = apiservice.withList();
+				mv.addObject("newslist", newsList);
+				break;
+			case "nav5":
+				newsList = apiservice.NSNewsList();
+				mv.addObject("newslist", newsList);
+				break;
+			default:
+				newsList = apiservice.weeklyNewsList();
+				mv.addObject("newslist", newsList);
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mv;
+	}
+	
+
 	
 	@PostMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
@@ -170,4 +214,11 @@ public class TestController {
 		}
 		return map;
 	}
+	
+	@Scheduled(cron = "* * 8 * * 1")
+	public void sendEmail() {
+		
+	}
+	
+	
 }
