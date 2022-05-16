@@ -41,6 +41,9 @@ dependencies {
 	
 	//email
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	
+	//scheduling
+	implementation 'org.springframework.scheduling'
 }
 
 tasks.named('test') {
