@@ -21,6 +21,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.nds.webzine.dto.NDSNews;
+import com.nds.webzine.dto.PageInfo;
 
 @Service
 public class WebZinSericeImpl implements WebZineService {
@@ -29,7 +30,7 @@ public class WebZinSericeImpl implements WebZineService {
 	private JavaMailSender javaMailSender;
 	
 	private String apiJsonString() {
-		String apiUrl = "https://nzin.nongshim.com/api/nz_webzine.php?rows=300&type=json";
+		String apiUrl = "https://nzin.nongshim.com/api/nz_webzine.php?rows=10000&type=json";
 
 		HttpURLConnection conn = null;
 		StringBuffer response = new StringBuffer();
@@ -93,9 +94,7 @@ public class WebZinSericeImpl implements WebZineService {
 		return response.toString();
 	}
 
-	@Override
-	public List<NDSNews> weeklyNewsList() throws Exception {
-	
+	private int weeklyNewsCount() {
 		String jsonString = apiJsonString();
 		JSONParser parser = new JSONParser();
 		JSONObject parserObj = null;
@@ -112,7 +111,184 @@ public class WebZinSericeImpl implements WebZineService {
 			System.out.println("변환에 실패");
 			e.printStackTrace();
 		}
+		
+		int listCount = 0;
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("주간영상")) {
+				listCount++;
+			}
+		}
+		
+		return listCount;
+	}
+	
+	private int NSNewsCount() {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
+		int listCount = 0;
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("농심")) {
+				listCount++;
+			}
+		}
+		
+		return listCount;
+	}
+	
+	private int forNSPeopleCount() {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
+		int listCount = 0;
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("농심인") || title.contains("직장인")) {
+				listCount++;
+			}
+		}
+		return listCount;
+	}
+	
+	private int withCount() {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
+		int listCount = 0;
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("소아암") || title.contains("공헌")) {
+				listCount++;
+			}
+		}
+		
+		return listCount;
+	}
+
+	private int eventCount() {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
+		int listCount = 0;
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("이벤트") || title.contains("추천") || title.contains("경품") || title.contains("퀴즈")) {
+				listCount++;
+			}
+		}
+		
+		return listCount;
+	}
+	
+	/* latest news  list */
+	
+	@Override
+	public List<NDSNews> weeklyNews6List() throws Exception {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
 		List<NDSNews> newslist = new ArrayList<NDSNews>();
 		for (int i = 0; i < arr.size(); i++) {
 			JSONObject obj = null;
@@ -132,8 +308,7 @@ public class WebZinSericeImpl implements WebZineService {
 		return newslist;
 	}
 	
-	@Override
-	public List<NDSNews> NSNewsList() throws Exception {
+	public List<NDSNews> NSNews6List() throws Exception {
 		String jsonString = apiJsonString();
 		JSONParser parser = new JSONParser();
 		JSONObject parserObj = null;
@@ -150,8 +325,10 @@ public class WebZinSericeImpl implements WebZineService {
 			System.out.println("변환에 실패");
 			e.printStackTrace();
 		}
-
+		
+		int listCount = 0;
 		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		
 		for (int i = 0; i < arr.size(); i++) {
 			JSONObject obj = null;
 			try {
@@ -161,19 +338,18 @@ public class WebZinSericeImpl implements WebZineService {
 			}
 			String title = obj.get("title").toString();
 			if(title.contains("농심")) {
+				listCount++;
 				NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
 				newslist.add(news);
 			}
 			
-			if(newslist.size()==6) break;
+			if(listCount==6) break;
 		}
-		
 		return newslist;
 	}
-
 	
 	@Override
-	public List<NDSNews> forNSPeopleList() throws Exception {
+	public List<NDSNews> forNSPeople6List() throws Exception {
 		
 		String jsonString = apiJsonString();
 		JSONParser parser = new JSONParser();
@@ -213,7 +389,7 @@ public class WebZinSericeImpl implements WebZineService {
 	}
 
 	@Override
-	public List<NDSNews> withList() throws Exception {
+	public List<NDSNews> with6List() throws Exception {
 		
 		String jsonString = apiJsonString();
 		JSONParser parser = new JSONParser();
@@ -253,7 +429,7 @@ public class WebZinSericeImpl implements WebZineService {
 	}
 
 	@Override
-	public List<NDSNews> eventList() throws Exception {
+	public List<NDSNews> event6List() throws Exception {
 		String jsonString = apiJsonString();
 		JSONParser parser = new JSONParser();
 		JSONObject parserObj = null;
@@ -288,7 +464,277 @@ public class WebZinSericeImpl implements WebZineService {
 			if(newslist.size()==6) break;
 		}
 		
-		System.out.println(newslist.size());
+		return newslist;
+	}
+
+	/* news paging list */
+	
+	@Override
+	public List<NDSNews> weeklyNewsList(int page, PageInfo pageInfo) throws Exception {
+	
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+
+		int listCount = weeklyNewsCount();
+		int maxPage = (int)Math.ceil((double)listCount/10);
+		int startPage=(((int) ((double)page/10+0.9))-1)*10+1;
+		int endPage=startPage+10-1;
+				
+		if(endPage>maxPage) endPage=maxPage;
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+		pageInfo.setMaxPage(maxPage);
+		pageInfo.setPage(page);
+		pageInfo.setListCount(listCount);
+				
+		int row =0;
+		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("주간영상")) {
+				row++;
+				if(row >= (page-1)*10 && row < page*10 ) {
+					NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
+					newslist.add(news);
+				}
+			}
+		}
+		return newslist;
+	}
+	
+	@Override
+	public List<NDSNews> NSNewsList(int page, PageInfo pageInfo) throws Exception {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
+		int listCount = NSNewsCount();
+		int maxPage = (int)Math.ceil((double)listCount/10);
+		int startPage=(((int) ((double)page/10+0.9))-1)*10+1;
+		int endPage=startPage+10-1;
+				
+		if(endPage>maxPage) endPage=maxPage;
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+		pageInfo.setMaxPage(maxPage);
+		pageInfo.setPage(page);
+		pageInfo.setListCount(listCount);
+				
+		int row =0;
+		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("농심")) {
+				row++;
+				if(row >= (page-1)*10 && row < page*10 ) {
+					NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
+					newslist.add(news);
+				}
+			}
+		}
+		return newslist;
+	}
+	
+	@Override
+	public List<NDSNews> forNSPeopleList(int page, PageInfo pageInfo) throws Exception {
+		
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+
+		int listCount = forNSPeopleCount();
+		int maxPage = (int)Math.ceil((double)listCount/10);
+		int startPage=(((int) ((double)page/10+0.9))-1)*10+1;
+		int endPage=startPage+10-1;
+				
+		if(endPage>maxPage) endPage=maxPage;
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+		pageInfo.setMaxPage(maxPage);
+		pageInfo.setPage(page);
+		pageInfo.setListCount(listCount);
+				
+		int row = 0;
+		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("농심인") || title.contains("직장인")) {
+				row++;
+				if(row >= (page-1)*10 && row < page*10 ) {
+					NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
+					newslist.add(news);
+				}
+			}
+		}
+		
+		return newslist;
+	}
+
+	@Override
+	public List<NDSNews> withList(int page, PageInfo pageInfo) throws Exception {
+		
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+
+		int listCount = withCount();
+		int maxPage = (int)Math.ceil((double)listCount/10);
+		int startPage=(((int) ((double)page/10+0.9))-1)*10+1;
+		int endPage=startPage+10-1;
+				
+		if(endPage>maxPage) endPage=maxPage;
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+		pageInfo.setMaxPage(maxPage);
+		pageInfo.setPage(page);
+		pageInfo.setListCount(listCount);
+				
+		int row = 0;
+		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("소아암") || title.contains("공헌")) {
+				row++;
+				if(row >= (page-1)*10 && row < page*10 ) {
+					NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
+					newslist.add(news);
+				};
+			}
+		}
+		return newslist;
+	}
+
+	@Override
+	public List<NDSNews> eventList(int page, PageInfo pageInfo) throws Exception {
+		String jsonString = apiJsonString();
+		JSONParser parser = new JSONParser();
+		JSONObject parserObj = null;
+		try {
+			parserObj = (JSONObject) parser.parse(jsonString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		JSONArray arr = null;
+		try {
+			arr = (JSONArray) parser.parse(parserObj.get("array").toString());
+		} catch (ParseException e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
+		int listCount = eventCount();
+		int maxPage = (int)Math.ceil((double)listCount/10);
+		int startPage=(((int) ((double)page/10+0.9))-1)*10+1;
+		int endPage=startPage+10-1;
+				
+		if(endPage>maxPage) endPage=maxPage;
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+		pageInfo.setMaxPage(maxPage);
+		pageInfo.setPage(page);
+		pageInfo.setListCount(listCount);
+		
+		int row = 0;
+		List<NDSNews> newslist = new ArrayList<NDSNews>();
+		for (int i = 0; i < arr.size(); i++) {
+			JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(arr.get(i).toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String title = obj.get("title").toString();
+			if(title.contains("이벤트") || title.contains("추천") || title.contains("경품") || title.contains("퀴즈")) {
+				row++;
+				if(row >= (page-1)*10 && row < page*10 ) {
+					NDSNews news = new NDSNews(obj.get("link").toString(), obj.get("title").toString(), obj.get("thumbLink").toString());
+					newslist.add(news);
+				};
+			}
+		}
+		
 		return newslist;
 	}
 
@@ -304,6 +750,8 @@ public class WebZinSericeImpl implements WebZineService {
 		
 		javaMailSender.send(simpleMessage);
 	}
+
+	
 
 	
 	

@@ -79,11 +79,11 @@
                             <h6>All the news</h6>
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav1" data-toggle="tab" href="http://localhost:8090/newslist?section=nav1" role="tab" aria-controls="nav-1" aria-selected="true">주간영상뉴스</a>
-                                    <a class="nav-item nav-link" id="nav2" data-toggle="tab" href="http://localhost:8090/newslist?section=nav2" role="tab" aria-controls="nav-2" aria-selected="false">NS NEWS</a>
-                                    <a class="nav-item nav-link" id="nav3" data-toggle="tab" href="${pageContext.request.contextPath}/newslist?section=nav3" role="tab" aria-controls="nav-3" aria-selected="false">NS PEOPLE</a>
-                                    <a class="nav-item nav-link" id="nav4" data-toggle="tab" href="${pageContext.request.contextPath}/newslist?section=nav4" role="tab" aria-controls="nav-4" aria-selected="false">WITH</a>
-                                    <a class="nav-item nav-link" id="nav5" data-toggle="tab" href="${pageContext.request.contextPath}/newslist?section=nav5" role="tab" aria-controls="nav-5" aria-selected="false">EVENTS</a>
+                                    <a class="nav-item nav-link" id="nav1" href="${pageContext.request.contextPath}/newslist?section=nav1&page=1" aria-selected="true">주간영상뉴스</a>
+                                    <a class="nav-item nav-link" id="nav2" href="${pageContext.request.contextPath}/newslist?section=nav2&page=1">NS NEWS</a>
+                                    <a class="nav-item nav-link" id="nav3" href="${pageContext.request.contextPath}/newslist?section=nav3&page=1">NS PEOPLE</a>
+                                    <a class="nav-item nav-link" id="nav4" href="${pageContext.request.contextPath}/newslist?section=nav4&page=1" aria-selected="false">WITH</a>
+                                    <a class="nav-item nav-link" id="nav5" href="${pageContext.request.contextPath}/newslist?section=nav5&page=1" aria-selected="false">EVENTS</a>
                                 </div>
                             </nav>
                         </div>
@@ -93,7 +93,7 @@
         
         	<div class="row">
         	<c:choose>
-        	<c:when test="${newslist !=null }">
+        	<c:when test="${newslist !=null && pageInfo.listCount>0 }">
         		<div class="col-12">
         		<c:forEach items="${newslist }" var="news">
         			<!-- Single News Area -->
@@ -117,42 +117,23 @@
         		<div id="pageList" style="text-align: center; margin-top:30px; margin-bottom :30px;">
 				<c:choose>
 					<c:when test="${pageInfo.page<=1}">«&nbsp;</c:when>
-					<c:otherwise><a href="route?page=${pageInfo.page-1}">«&nbsp;</a></c:otherwise>
+					<c:otherwise><a href="${pageContext.request.contextPath}/newslist?section=${section}&page=${pageInfo.page-1}">«&nbsp;</a></c:otherwise>
 				</c:choose>
 				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
 					<c:choose>
 						<c:when test="${pageInfo.page==i }">${i}&nbsp;</c:when>
-						<c:otherwise><a href="route?page=${i}">${i}&nbsp;</a></c:otherwise>
+						<c:otherwise><a href="${pageContext.request.contextPath}/newslist?section=${section}&page=${i}">${i}&nbsp;</a></c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:choose>
 					<c:when test="${pageInfo.page>=pageInfo.maxPage }">»&nbsp;</c:when>
-					<c:otherwise><a href="route?page=${pageInfo.page+1}">»&nbsp;</a></c:otherwise>
+					<c:otherwise><a href="${pageContext.request.contextPath}/newslist?section=${section}&page=${pageInfo.page+1}">»&nbsp;</a></c:otherwise>
 				</c:choose>
 				</div>
 				</div>
         	</c:when>
         	<c:otherwise>
-        		<section id="emptyArea" style="text-align: center; margin-top:30px; margin-bottom :30px; vertical-align: middle;">등록된 글이 없습니다.</section>
-        		<div class="col-12">
-        		<div id="pageList" style="text-align: center; margin-top:30px; margin-bottom :30px;">
-				<c:choose>
-					<c:when test="${pageInfo.page<=1}">«&nbsp;</c:when>
-					<c:otherwise><a href="route?page=${pageInfo.page-1}">«&nbsp;</a></c:otherwise>
-				</c:choose>
-				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
-					<c:choose>
-						<c:when test="${pageInfo.page==i }">${i}&nbsp;</c:when>
-						<c:otherwise><a href="route?page=${i}">${i}&nbsp;</a></c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${pageInfo.page>=pageInfo.maxPage }">»&nbsp;</c:when>
-					<c:otherwise><a href="route?page=${pageInfo.page+1}">»&nbsp;</a></c:otherwise>
-				</c:choose>
-				</div>
-				</div>
-        		
+        	
         	</c:otherwise>		
         	</c:choose>
             </div>

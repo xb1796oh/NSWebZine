@@ -52,8 +52,8 @@ public class TestController {
 		List<NDSNews> newslist = null;
 		List<NDSNews> detaillist = null;
 		try {
-			newslist = apiservice.weeklyNewsList();
-			detaillist = apiservice.NSNewsList();
+			newslist = apiservice.weeklyNews6List();
+			detaillist = apiservice.NSNews6List();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,37 +65,46 @@ public class TestController {
 	}
 	
 	@GetMapping("/newslist")
-	public ModelAndView newslist(@RequestParam(value="section",required=false, defaultValue = "nav1") String section, @RequestParam(value="page",required=false, defaultValue = "1") int page) {
+	public ModelAndView newslist(@RequestParam(value="section", required=false) String section, @RequestParam(value="page",required=false) int page) {
 		ModelAndView mv = new ModelAndView("newslist");
   		List<NDSNews> newsList = null;
+  		PageInfo pageInfo = new PageInfo();
   		
 		try {
 			switch(section) {
 			case "nav1":
-				newsList = apiservice.weeklyNewsList();
+				newsList = apiservice.weeklyNewsList(page, pageInfo);
+				mv.addObject("pageInfo", pageInfo);
 				mv.addObject("newslist", newsList);
+				mv.addObject("count", newsList.size());
 				break;
 			case "nav2":
-				newsList = apiservice.NSNewsList();
+				newsList = apiservice.NSNewsList(page, pageInfo);
+				mv.addObject("pageInfo", pageInfo);
 				mv.addObject("newslist", newsList);
+				mv.addObject("count", newsList.size());
 				break;
 			case "nav3":
-				newsList = apiservice.forNSPeopleList();
+				newsList = apiservice.forNSPeopleList(page, pageInfo);
+				mv.addObject("pageInfo", pageInfo);
 				mv.addObject("newslist", newsList);
+				mv.addObject("count", newsList.size());
 				break;
 			case "nav4":
-				newsList = apiservice.withList();
+				newsList = apiservice.withList(page, pageInfo);
+				mv.addObject("pageInfo", pageInfo);
 				mv.addObject("newslist", newsList);
+				mv.addObject("count", newsList.size());
 				break;
 			case "nav5":
-				newsList = apiservice.NSNewsList();
+				newsList = apiservice.eventList(page, pageInfo);
+				mv.addObject("pageInfo", pageInfo);
 				mv.addObject("newslist", newsList);
-				break;
-			default:
-				newsList = apiservice.weeklyNewsList();
-				mv.addObject("newslist", newsList);
+				mv.addObject("count", newsList.size());
 				break;
 			}
+			
+			mv.addObject("section", section);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -165,7 +174,7 @@ public class TestController {
 		Map<String, Object> map = new HashMap<String, Object>();
   		List<NDSNews> NSnewsList = null;
 		try {
-			NSnewsList = apiservice.NSNewsList();
+			NSnewsList = apiservice.NSNews6List();
 			map.put("list", NSnewsList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -179,7 +188,7 @@ public class TestController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<NDSNews> NSpeopleList = null;
 		try {
-			NSpeopleList = apiservice.forNSPeopleList();
+			NSpeopleList = apiservice.forNSPeople6List();
 			map.put("list", NSpeopleList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,7 +202,7 @@ public class TestController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<NDSNews> NSwithsList = null;
 		try {
-			NSwithsList = apiservice.withList();
+			NSwithsList = apiservice.with6List();
 			map.put("list", NSwithsList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -207,7 +216,7 @@ public class TestController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<NDSNews> NSeventsList = null;
 		try {
-			NSeventsList = apiservice.eventList();
+			NSeventsList = apiservice.event6List();
 			map.put("list", NSeventsList);
 		} catch (Exception e) {
 			e.printStackTrace();
