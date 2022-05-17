@@ -18,5 +18,4 @@ public interface WebZineService {
 	public List<NDSNews> withList(int page, PageInfo pageInfo) throws Exception;			// 봉사
 	public List<NDSNews> eventList(int page, PageInfo pageInfo) throws Exception;			// 이벤트
 	
-	public void subscribeMail();
 }
