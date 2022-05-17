@@ -30,7 +30,7 @@ public class EmailService {
 	@Autowired
 	MemberService memberservice;
 	
-	@Scheduled(cron = "40 8 12 * * *")
+	@Scheduled(cron = "0 0 8 ? * MON *")
 	public void sendWeeklylNews() {
 		
 		String apiUrl = "https://nzin.nongshim.com/api/nz_webzine.php?rows=10&type=json";
