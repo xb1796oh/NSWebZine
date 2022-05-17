@@ -24,4 +24,11 @@
 		]]>
 	</update>
 	
+	<!-- 회원 이메일 list -->
+	<select id="selectSubscribedEmailList" resultType="String">
+		<![CDATA[
+			select email from member where subscribe=1
+		]]>
+	</select>
+	
 </mapper>

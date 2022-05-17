@@ -1,6 +1,7 @@
 package com.nds.webzine.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,11 @@ public class MemberServiceImpl implements MemberService {
 		map.put("id", id);
 		map.put("email", email);
 		memberDAO.updateSubscribe(map);
+	}
+
+	@Override
+	public List<String> subscribedEmailList() throws Exception {
+		return memberDAO.selectSubscribedEmailList();
 	}
 	
 	

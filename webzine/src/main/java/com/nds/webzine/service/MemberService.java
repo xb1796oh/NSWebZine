@@ -1,5 +1,6 @@
 package com.nds.webzine.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.nds.webzine.dto.Member;
@@ -9,4 +10,6 @@ public interface MemberService {
 	
 	public String memberCheck(Map<String, String> login) throws Exception;	
 	public void subscribe(String id, String email) throws Exception;	
+	
+	public List<String> subscribedEmailList() throws Exception;
 }

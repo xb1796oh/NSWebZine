@@ -43,7 +43,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	
 	//scheduling
-	implementation 'org.springframework.scheduling'
+	//implementation 'org.springframework.scheduling'
+	
+	//slf4j
+	implementation 'org.slf4j:jcl-over-slf4j'
+	
+	//lombok
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
 tasks.named('test') {
