@@ -102,7 +102,7 @@
     $(function(){
     	$(document).on('click', '#unsubscribe', function(e){
     		var email = $("#email").val();
-    		if(uid==""){
+    		if(email==""){
     			alert("email을 입력하세요");
     			return;
     		}
@@ -111,15 +111,14 @@
     			type:"post",
     			async: false,
     			data : {"email": $("#email").val()},
-    			url:"${pageContext.request.contextPath}/loginCheck",
+    			url:"http://localhost:8090/emailCheck",
     			success: function(data, textStatus){ 
-    				if(data=="false"){
-    					alert("아이디 혹은 비밀번호가 틀렸습니다.");
-    					$("#id").val("");
-    					$("#password").val("");
-    					$("#id").focus();
+    				if(data=="fail"){
+    					alert("이메일 조회에 실패했습니다.");
+    					$("#email").val("");
+    					$("#email").focus();
     				} else{
-    					location.href = '${pageContext.request.contextPath}/';
+    					location.href = 'http://localhost:8090/main';
     				}
     			}
     		});
