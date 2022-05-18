@@ -14,22 +14,19 @@ repositories {
 }
 
 dependencies {
-	//spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	
-	//jsp
+	// tomcat & jsp
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.56'
 	implementation 'javax.servlet:jstl:1.2'
-	implementation 'org.apache.tiles:tiles-jsp:3.0.4'	
+	implementation 'org.json:json:20211205'	
 	
-	//json
-	//implementation 'org.json:json:20211205'
+	// json
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-	//implementation 'com.google.code.gson:gson:2.8.2'
-	
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'com.google.code.gson:gson:2.8.2'
 	
 	//mybatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
@@ -41,12 +38,6 @@ dependencies {
 	
 	//email
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	
-	//scheduling
-	//implementation 'org.springframework.scheduling'
-	
-	//slf4j
-	implementation 'org.slf4j:jcl-over-slf4j'
 	
 	//lombok
 	compileOnly 'org.projectlombok:lombok:1.18.20'

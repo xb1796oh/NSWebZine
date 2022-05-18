@@ -149,6 +149,8 @@
         </div>
     </section>
     
+    <jsp:include page="footer.jsp" flush="true"/>
+    
 
 	<!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->

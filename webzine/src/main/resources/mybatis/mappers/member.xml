@@ -3,10 +3,10 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nds.webzine.dao.MemberDAO">
 
-	<!-- mysql 연결 test -->
-	<select id="selectMember" resultType="com.nds.webzine.dto.Member" >
+	<!-- 회원 구독율 -->
+	<select id="subscribedRatio" resultType="double">
 		<![CDATA[
-			select * from member where id="1234"
+			select ROUND((select count(*) from member where subscribe=1) / (select count(*) from member), 2)
 		]]>
 	</select>
 	
@@ -16,11 +16,25 @@
 			select EXISTS (select * from member where id=#{id} and password=#{password} limit 1) as success;
 		]]>
 	</select>
-		
+	
+	<!-- 회원 이메일 정보 check -->
+	<select id="emailCheck" parameterType="String" resultType="boolean">
+		<![CDATA[
+			select EXISTS (select * from member where email=#{email} limit 1) as success;
+		]]>
+	</select>
+	
 	<!-- 구독서비스 신청 및 이메일 등록 -->
 	<update id="updateSubscribe" parameterType="map">
 		<![CDATA[
 			update member set email=#{email}, subscribe=true where id=#{id}
+		]]>
+	</update>
+	
+	<!-- 구독서비스 신청취소 -->
+	<update id="updateUnSubscribe" parameterType="map">
+		<![CDATA[
+			update member set subscribe=false where email=#{email}
 		]]>
 	</update>
 	

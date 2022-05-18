@@ -30,7 +30,8 @@ public class EmailService {
 	@Autowired
 	MemberService memberservice;
 	
-	@Scheduled(cron = "0 0 8 ? * MON *")
+	//@Scheduled(cron = "0 0 8 ? * MON *")
+	@Scheduled(cron = "0 34 15 * * *")
 	public void sendWeeklylNews() {
 		
 		String apiUrl = "https://nzin.nongshim.com/api/nz_webzine.php?rows=10&type=json";
@@ -134,8 +135,8 @@ public class EmailService {
 			mail.setFrom("vhqltkfkd24@gmail.com", "조예선");
 			mail.setSubject(title);
 			mail.setText(new StringBuffer().append(html)
-				    .append("<p>위의 이미지를 클릭하면 해당페이지로 이동합니다.</p><br><br><br>")
-				    .append("<p>위의 이미지를 클릭하면 해당페이지로 이동합니다.</p><br><br><br>")
+				    .append("<p>위의 이미지를 클릭하면 해당페이지로 이동합니다.</p>")
+				    .append("<p>본 메일은 vhqltkfkd24@gmail에 의해 전송됩니다.<br>농심 주간영상뉴스을 더이상 받기를 원하시면 <a href=\"http://localhost:8090/unSubscribe\">구독취소</a>를 눌러주세요.</p>")
 				    .toString()
 				  );
 			

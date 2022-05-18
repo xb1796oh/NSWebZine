@@ -17,15 +17,8 @@ public class MemberServiceImpl implements MemberService {
 	MemberDAO memberDAO;
 
 	@Override
-	public Member test() {
-		Member mem = null;
-		try {
-			mem = memberDAO.selectMember();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return mem;
+	public double subscribedRatio() throws Exception {
+		return memberDAO.subscribedRatio();
 	}
 
 	@Override
@@ -35,17 +28,27 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public String emailCheck(String email) throws Exception {
+		if(memberDAO.emailCheck(email)==true) return "true";
+		else return "false";
+	}
+	
+	@Override
 	public void subscribe(String id, String email) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("email", email);
 		memberDAO.updateSubscribe(map);
 	}
+	
+	@Override
+	public void unSubscribe(String email) throws Exception {
+		memberDAO.updateUnSubscribe(email);
+	}
 
 	@Override
 	public List<String> subscribedEmailList() throws Exception {
 		return memberDAO.selectSubscribedEmailList();
 	}
-	
 	
 }
