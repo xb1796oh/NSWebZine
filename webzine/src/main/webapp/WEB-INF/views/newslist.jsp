@@ -28,7 +28,6 @@
 
     <jsp:include page="header.jsp" flush="true"/>
     
-    <!-- ##### Breaking News Area ##### -->
     <section class="breaking-news-area clearfix">
         <div class="container-fluid">
             <div class="row">

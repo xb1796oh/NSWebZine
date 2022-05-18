@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nds.webzine.dao.MemberDAO;
-import com.nds.webzine.dto.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -45,7 +44,8 @@ public class MemberServiceImpl implements MemberService {
 	public void unSubscribe(String email) throws Exception {
 		memberDAO.updateUnSubscribe(email);
 	}
-
+	
+	//
 	@Override
 	public List<String> subscribedEmailList() throws Exception {
 		return memberDAO.selectSubscribedEmailList();

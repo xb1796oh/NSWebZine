@@ -27,7 +27,6 @@
 
     <jsp:include page="header.jsp" flush="true"/>
     
-    <!-- ##### Breaking News Area Start ##### -->
     <section class="breaking-news-area clearfix">
         <div class="container-fluid">
             <div class="row">
@@ -49,9 +48,7 @@
             </div>
         </div>
     </section>
-    <!-- ##### Breaking News Area End ##### -->
     
-    <!-- ##### Contact Area Start ##### -->
     <section class="section-padding-100-0 mb-70">
         <div class="container">
             <div class="row justify-content-center">

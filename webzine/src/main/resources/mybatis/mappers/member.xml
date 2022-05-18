@@ -24,7 +24,7 @@
 		]]>
 	</select>
 	
-	<!-- 구독서비스 신청 및 이메일 등록 -->
+	<!-- 구독서비스 신청 & 이메일 등록 -->
 	<update id="updateSubscribe" parameterType="map">
 		<![CDATA[
 			update member set email=#{email}, subscribe=true where id=#{id}

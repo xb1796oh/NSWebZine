@@ -47,8 +47,6 @@
                 </div>
             
 				<c:forEach var="news" items="${newslist }">
-					<!-- Single News Area -->
-					
 					<div class="col-12 col-sm-6 col-lg-4">
                     	<div class="single-blog-post style-2 mb-5">
                         	<div class="blog-thumbnail">

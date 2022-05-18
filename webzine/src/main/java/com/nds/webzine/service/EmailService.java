@@ -30,7 +30,7 @@ public class EmailService {
 	@Autowired
 	MemberService memberservice;
 	
-	//@Scheduled(cron = "0 0 8 ? * MON *")
+	////@Scheduled(cron = "0 0 8 ? * MON *")
 	@Scheduled(cron = "0 34 15 * * *")
 	public void sendWeeklylNews() {
 		
