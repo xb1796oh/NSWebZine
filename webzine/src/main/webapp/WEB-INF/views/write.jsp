@@ -69,7 +69,6 @@
     
     </style>
 	<!-- <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script> -->
-	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/balloon/ckeditor.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/balloon-block/ckeditor.js"></script>
 </head>	
 
@@ -106,18 +105,19 @@
                 <div class="col-12">
                     <div class="contact-content mb-100">
                         <a href="#" class="d-block mb-50"><img src="img/core-img/logo.png" alt=""></a>
-						<form id="form" action="/enrollFB" method="post">
+						<form id="form1" action="/enrollFB" method="post" enctype='multipart/form-data'>
 							<div class="col-12 mb-30" style="display:inline-block; ">
                                 <input type="text" class="form-control" id="title" name="title" placeholder="제목" style="height:50px;">
                             </div>
 							<div class="col-12 ">
-								<div id="editor" name="contents" style="border: 1px solid gray;"></div>
+								<div id="editor" style="border: 1px solid gray;"></div>
 							</div>
 							<div class="col-12">
-								<div style="display:inline-block; float:right; margin-left:10px;"><button class="btn newsbox-btn mt-30" type="button" id="submit">글 등록</button></div>
+								<div style="display:inline-block; float:right; margin-left:10px;"><button class="btn newsbox-btn mt-30" type="button" id="enroll">글 등록</button></div>
 								<div class="m-2 mt-30" style="vertical-align:top; margin-left:10px; float:right; display:inline-block; padding-top:20px;">글쓴이 비공개</div>
 								<div class="m-2 mt-30" style="display:inline-block; float:right; padding-top:18px;"><input type="checkbox" id="secretCheck" style="width:25px; height:25px;" checked></div>
 								<input type="hidden" id="secret" name="secret" />
+								<input type="hidden" id="contents" name="contents" />
 							</div>				
 						</form>
                     </div>
@@ -129,7 +129,9 @@
 
     <jsp:include page="footer.jsp" flush="true"/>
     
+    
 	<!-- ##### All Javascript Script ##### -->
+	
     <!-- jQuery-2.2.4 js -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
@@ -151,9 +153,8 @@
              console.error( error );
          } );
     	 
-    	 //$("#subCheck").is(':checked')
-    	 $(document).on('click', '#submit', function(e){
-    		 if($("#title").val==""){
+    	 $(document).on('click', '#enroll', function(e){
+    		 if($("#title").val()==""){
     			 alert("제목을 입력하세요.");
     			 return;
     		 }
@@ -162,11 +163,10 @@
     		 } else {
     			 $("#secret").attr("value", "0");
     		 }
-    		 
-    		 $("#form").submit();
+    		 $("#contents").attr("value", $("#editor").html());
+    		 $("#form1").submit();
     	 });
     });
-    
     
     </script>
 </body>
