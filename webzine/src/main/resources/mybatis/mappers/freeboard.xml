@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nds.webzine.dao.FreeBoardDAO">
+	
+	<!-- 게시글 등록 -->
+	<select id="createFreeBoard" >
+		<![CDATA[
+			
+		]]>
+	</select>
+	
+	
+	<!-- 게시글 읽기 -->
+	<select id="readFreeBoard" >
+		<![CDATA[
+			
+		]]>
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<select id="updateFreeBoard" >
+		<![CDATA[
+			
+		]]>
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<select id="deleteFreeBoard" >
+		<![CDATA[
+			
+		]]>
+	</select>
+	
+</mapper>
