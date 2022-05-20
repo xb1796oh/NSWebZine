@@ -38,6 +38,7 @@
                             <div class="classynav">
                                 <ul>
                                 	<li><a class="pointer" href="${pageContext.request.contextPath}/newslist?section=nav1&page=1">All News</a></li>
+                                	<li><a class="pointer" onclick='showCommunity("${id}");'>Community</a></li>
                                 	<li>
                                 		<c:choose >
                                 			<c:when test="${id eq null }">
@@ -56,5 +57,17 @@
             </div>
         </div>
     </header>
+    
+    <script>
+    function showCommunity(id){
+		if(id==""){
+			alert("로그인 후 사용가능합니다");
+			location.href="${pageContext.request.contextPath}/login";
+		} else {
+			location.href="${pageContext.request.contextPath}/board";
+		}
+		
+	}
+    </script>
 </body>
 </html>
