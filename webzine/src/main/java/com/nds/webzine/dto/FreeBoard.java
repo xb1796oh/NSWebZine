@@ -2,7 +2,7 @@ package com.nds.webzine.dto;
 
 public class FreeBoard {
 	String fbNo;
-	String fbWrier;
+	String fbWriter;
 	String title;
 	String contents;
 	boolean secret;
@@ -13,11 +13,11 @@ public class FreeBoard {
 	public void setFbNo(String fbNo) {
 		this.fbNo = fbNo;
 	}
-	public String getFbWrier() {
-		return fbWrier;
+	public String getFbWriter() {
+		return fbWriter;
 	}
-	public void setFbWrier(String fbWrier) {
-		this.fbWrier = fbWrier;
+	public void setFbWriter(String fbWriter) {
+		this.fbWriter = fbWriter;
 	}
 	public String getTitle() {
 		return title;
