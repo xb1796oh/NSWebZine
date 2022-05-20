@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nds.webzine.dao.FreeBoardDAO;
+import com.nds.webzine.dto.FreeBoard;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -12,8 +13,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	FreeBoardDAO freeboardDAO;
 
 	@Override
-	public void writeFreeBoard() throws Exception {
-		
+	public void insertFreeBoard(FreeBoard fb) throws Exception {
+		freeboardDAO.createFreeBoard(fb);
 	}
 
 	@Override
