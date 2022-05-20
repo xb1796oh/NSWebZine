@@ -50,7 +50,7 @@
     </section>
     
     <!-- ##### Catagory Featured Area ##### -->
-    <div class="catagory-featured-post clearfix"  style="background-color:white;">  
+    <div class="catagory-featured-post clearfix mb-100"  style="background-color:white;">  
     	 <div id="slide" class="mySwiper add-widget mb-30" style="position: relative; overflow:hidden; cursor:pointer;" onclick="location.href='http://brand.nongshim.com/shop/index'">                   	
 			<!-- slide image -->
             <div class="swiper-wrapper">
@@ -74,7 +74,7 @@
     </div>
     
    <!-- ##### Contact Area Start ##### -->
-    <section class="contact-area mb-100 ">
+    <section class="contact-area section-padding-100-0 mb-100 ">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12" style="text-align:center; ">
