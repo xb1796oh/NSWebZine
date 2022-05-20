@@ -118,13 +118,13 @@ public class NewsController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value="NSpeople")
-	public Map<String, Object> NSpeopleList() {
+	@PostMapping(value="NSPeople")
+	public Map<String, Object> enjoyNSList() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<NDSNews> NSpeopleList = null;
+		List<NDSNews> enjoyNSList = null;
 		try {
-			NSpeopleList = apiservice.forNSPeople6List();
-			map.put("list", NSpeopleList);
+			enjoyNSList = apiservice.forNSPeople6List();
+			map.put("list", enjoyNSList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

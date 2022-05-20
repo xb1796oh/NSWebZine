@@ -88,7 +88,7 @@
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link" id="nav1" href="${pageContext.request.contextPath}/newslist?section=nav1&page=1" aria-selected="true">WEEKLY</a>
                                     <a class="nav-item nav-link" id="nav2" href="${pageContext.request.contextPath}/newslist?section=nav2&page=1">NS NEWS</a>
-                                    <a class="nav-item nav-link" id="nav3" href="${pageContext.request.contextPath}/newslist?section=nav3&page=1">NS PEOPLE</a>
+                                    <a class="nav-item nav-link" id="nav3" href="${pageContext.request.contextPath}/newslist?section=nav3&page=1">NSPeople</a>
                                     <a class="nav-item nav-link" id="nav4" href="${pageContext.request.contextPath}/newslist?section=nav4&page=1" aria-selected="false">WITH</a>
                                     <a class="nav-item nav-link" id="nav5" href="${pageContext.request.contextPath}/newslist?section=nav5&page=1" aria-selected="false">EVENTS</a>
                                 </div>
@@ -163,7 +163,6 @@
     <!-- Active js -->
     <script src="js/active.js"></script>
     
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
     var swiper = new Swiper(".mySwiper", {
         //spaceBetween: 30,

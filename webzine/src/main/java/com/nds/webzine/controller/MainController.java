@@ -24,7 +24,7 @@ public class MainController {
 
 	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
-
+		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 		model.addAttribute("id", id);

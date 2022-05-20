@@ -99,7 +99,7 @@
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="nav2" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="true">NS News</a>
-                                    <a class="nav-item nav-link" id="nav3" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">NS People</a>
+                                    <a class="nav-item nav-link" id="nav3" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">NSPeople</a>
                                     <a class="nav-item nav-link" id="nav4" data-toggle="tab" href="#nav-3" role="tab" aria-controls="nav-3" aria-selected="false">With</a>
                                     <a class="nav-item nav-link" id="nav5" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-4" aria-selected="false">Events</a>
                                 </div>
@@ -221,7 +221,7 @@
     			type:"post",
     			dataType:"text",
     			async: false,
-    			url:"${pageContext.request.contextPath}/NSpeople",
+    			url:"${pageContext.request.contextPath}/NSPeople",
     			success: function(data, textStatus){ 
     				var listData = JSON.parse(data);
     				var NSpeopleList = listData.list;

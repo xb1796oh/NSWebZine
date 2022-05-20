@@ -34,7 +34,6 @@ public class WebZinSericeImpl implements WebZineService {
 		try {
 			url = new URL(apiUrl);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
