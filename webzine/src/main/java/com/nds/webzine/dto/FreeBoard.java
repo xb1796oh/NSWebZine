@@ -1,16 +1,20 @@
 package com.nds.webzine.dto;
 
+import java.sql.Date;
+
 public class FreeBoard {
-	String fbNo;
+	int fbNo;
 	String fbWriter;
 	String title;
 	String contents;
 	boolean secret;
+	Date recordDate;
+	int views;
 	
-	public String getFbNo() {
+	public int getFbNo() {
 		return fbNo;
 	}
-	public void setFbNo(String fbNo) {
+	public void setFbNo(int fbNo) {
 		this.fbNo = fbNo;
 	}
 	public String getFbWriter() {
@@ -37,4 +41,18 @@ public class FreeBoard {
 	public void setSecret(boolean secret) {
 		this.secret = secret;
 	}
+	public Date getRecordDate() {
+		return recordDate;
+	}
+	public void setRecordDate(Date recordDate) {
+		this.recordDate = recordDate;
+	}
+	public int getViews() {
+		return views;
+	}
+	public void setViews(int views) {
+		this.views = views;
+	}
+	
+	
 }

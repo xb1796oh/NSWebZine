@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +22,7 @@
     
     <!-- slides -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
+    
     <style>
     .board_list {
 		width: 100%;
@@ -62,9 +61,11 @@
 	.board_list tbody td a {
 		display: inline-block
 	}
+	
     </style>
-
-</head>
+	<script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+	<!-- <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/balloon-block/ckeditor.js"></script> -->
+</head>	
 
 <body>
 
@@ -96,57 +97,54 @@
     <section class="contact-area section-padding-100">
         <div class="container">
             <div class="row justify-content-center">
-
                 <div class="col-12">
                     <div class="contact-content mb-100">
-                        <!-- Logo -->
                         <a href="#" class="d-block mb-50"><img src="img/core-img/logo.png" alt=""></a>
-							<table class="board_list">
-								<colgroup>
-									<col width="*%" />
-									<col width="15%" />
-									<col width="15%" />
-									<col width="15%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">제목</th>
-										<th scope="col">작성자</th>
-										<th scope="col">작성일</th>
-										<th scope="col">조회</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="freeboard" items="${fblist }">
-										<tr id="fblist" style="cursor:pointer" onClick='readFB(${freeboard.fbNo});'>
-								    		<td>${freeboard.title }</td>
-								    		<td>
-								    			<c:set var="writer" value="${freeboard.fbWriter }" />
-								    			<c:if test="${freeboard.secret eq true }">
-								    				<c:forEach var="secret" begin="1" end="${fn:length(writer) }">*</c:forEach>
-								    			</c:if>
-								    			<c:if test="${freeboard.secret eq false }">${freeboard.fbWriter }</c:if>
-								    		</td>
-								    		<td>${freeboard.recordDate }</td>
-								    		<td>${freeboard.views }</td>
-						    			</tr>
-									</c:forEach>
-    							</tbody>
-							</table>
-                    	 <a href="/write" class="btn newsbox-btn btn-2 mt-30" style="float:right;">글쓰기</a>
+						
+						<div class="single-contact-info d-flex align-items-center">
+                            <div class="icon mr-15">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrd7BKSkv3wrkz8trLeNxfx_5Qr_b-EMzJXbfmVbDHcDbdTVSmnez800BYmBXTuHU_JXY&usqp=CAU" alt="">
+                            </div>
+                            <h3>${fb.title }</h3>
+                        </div>
+						<div class="single-contact-info  align-items-center" style="display:inline-block;">
+                            <div class="icon mr-15"  style="display:inline-block;">
+                                <img src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">
+                            </div>
+                            <c:set var="writer" value="${fb.fbWriter }" />
+							<c:if test="${fb.secret eq true }">
+								<p style="display:inline-block;"><c:forEach var="secret" begin="1" end="${fn:length(writer) }">*</c:forEach></p>
+							</c:if>
+							<c:if test="${fb.secret eq false }"><p style="display:inline-block;">${fb.fbWriter }</p></c:if>             
+                        </div>
+						<div class="single-contact-info  align-items-center" style="display:inline-block; margin-left:5%;">
+                            <div class="icon mr-15"  style="display:inline-block;">
+                                <img src="https://us.123rf.com/450wm/captainvector/captainvector1705/captainvector170506024/77329229-%EC%BA%98%EB%A6%B0%EB%8D%94-%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="">
+                            </div>
+                            <p style="display:inline-block;">${fb.recordDate }</p>                            
+                        </div>
+						<div class="single-contact-info  align-items-center" style="float: right;  margin-right:5%;">
+                            <div class="icon mr-15"  style="display:inline-block;">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJh6bT3EL7JNd5edGWcNizG70ofq6s-OlKypPkuAVm-BYPawC_M243gylm9anxIPRyRUs&usqp=CAU" alt="">
+                            </div>
+                            <p style="display:inline-block;">${fb.views }</p>                            
+                        </div>
+                        <br><br><br>
+						<div class="col-12 ">
+							<textarea id="content" style="border: none"></textarea>
+						</div>									
                     </div>
                     
                 </div>
             </div>
         </div>
     </section>
-    <!-- ##### Contact Area End ##### -->
-    
 
     <jsp:include page="footer.jsp" flush="true"/>
     
-
+    
 	<!-- ##### All Javascript Script ##### -->
+	
     <!-- jQuery-2.2.4 js -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
@@ -159,48 +157,21 @@
     <script src="js/active.js"></script>
     
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script language="javascript" type="text/javascript">
-    
-    function readFB(fbNo){
-    	let form = document.createElement('form');
-    	let param = document.createElement('input');
-    	param.setAttribute('type', 'hidden');
-    	param.setAttribute('name', 'fbNo');
-    	param.setAttribute('value', fbNo);
-    	
-    	form.appendChild(param);
-    	form.setAttribute('method', 'post');
-    	form.setAttribute('action', '/read');
-    	
-    	let fbtr = document.getElementById('fblist');
-    	fbtr.appendChild(form);
-    	form.submit();
-    }
-    
-    
-    var swiper = new Swiper(".mySwiper", {
-        //spaceBetween: 30,
-        centeredSlides: true,
-        freeMode : false,
-        autoplay: {
-          delay: 2500,
-          
-          disableOnInteraction: false,
-        },
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-    
+    <script>
     $(function(){
-    	$(".wiper-slide").hide();
-    	$(".swiper-slide-active").show();
-    });
+		ClassicEditor.create(document.querySelector("#content"))
+    	.then(editor=>{
+    		window.editor = editor;
+    	    editor.isReadOnly = true;
+    	    const toolbarElement = editor.ui.view.toolbar.element;
+    	    toolbarElement.style.display = 'none';
+        	editor.setData('${fb.contents }');
+        })
+	    .catch((error) => {
+    	   	console.error(error);
+	    });
+	});
+    
     </script>
 </body>
 </html>

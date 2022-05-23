@@ -6,15 +6,29 @@
 	<!-- 게시글 등록 -->
 	<select id="createFreeBoard" parameterType="com.nds.webzine.dto.FreeBoard" >
 		<![CDATA[
-			insert into freeboard(fbNo, fbWriter, title, contents, secret) values(#{fbNo}, #{fbWriter}, #{title}, #{contents}, #{secret});
+			insert into freeboard(fbWriter, title, contents, secret, recordDate, views) values(#{fbWriter}, #{title}, #{contents}, #{secret}, now(), 0);
+		]]>
+	</select>
+	
+	<!-- 전체 게시글 수 -->
+	<select id="fbNum" resultType="int" >
+		<![CDATA[
+			select count(*) from freeboard
+		]]>
+	</select>
+	
+	<!-- 게시글 리스트(페이징 적용) -->
+	<select id="fbList" parameterType="int" resultType="com.nds.webzine.dto.FreeBoard" >
+		<![CDATA[
+			select * from freeboard order by recordDate desc limit #{startrow}, 9
 		]]>
 	</select>
 	
 	
 	<!-- 게시글 읽기 -->
-	<select id="readFreeBoard" >
+	<select id="readFreeBoard" parameterType="int" resultType="com.nds.webzine.dto.FreeBoard" >
 		<![CDATA[
-			
+			select * from freeboard where fbNo=#{fbNo}
 		]]>
 	</select>
 	
