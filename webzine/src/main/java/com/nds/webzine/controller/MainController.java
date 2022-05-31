@@ -32,12 +32,12 @@ public class MainController {
 		return "login";
 	}
 
-	@ResponseBody
-	@PostMapping("/logout")
-	public void logout(HttpServletRequest request) {
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
 		session.removeAttribute("id");
+		return "login";
 	}
 
 	@ResponseBody

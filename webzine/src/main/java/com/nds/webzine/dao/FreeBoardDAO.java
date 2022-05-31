@@ -12,10 +12,11 @@ import com.nds.webzine.dto.FreeBoard;
 public interface FreeBoardDAO {
 	public void createFreeBoard(FreeBoard fb) throws Exception;
 	public FreeBoard readFreeBoard(int fbNo) throws Exception;
-	public void updateFreeBoard() throws Exception;
-	public void deleteFreeBoard() throws Exception;
+	public void updateFreeBoard(FreeBoard fb) throws Exception;
+	public void deleteFreeBoard(int fbNo) throws Exception;
 	
 	public int fbNum() throws Exception;
 	public List<FreeBoard> fbList(int startrow) throws Exception;
+	public void updateViews(int fbNo) throws Exception;
 }
  

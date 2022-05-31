@@ -26,15 +26,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public void modifyFreeBoard() throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void modifyFreeBoard(FreeBoard fb) throws Exception {
+		freeboardDAO.updateFreeBoard(fb);		
 	}
 
 	@Override
-	public void deleteFreeBoard() throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void deleteFreeBoard(int fbNo) throws Exception {
+		freeboardDAO.deleteFreeBoard(fbNo);
 	}
 
 	
@@ -55,6 +53,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		int startrow = (page-1)*9;
 		return freeboardDAO.fbList(startrow);
+	}
+
+	@Override
+	public void updateViews(int fbNo) throws Exception {
+		freeboardDAO.updateViews(fbNo);
 	}
 
 }

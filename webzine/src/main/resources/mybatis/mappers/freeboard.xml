@@ -32,17 +32,25 @@
 		]]>
 	</select>
 	
-	<!-- 게시글 수정 -->
-	<select id="updateFreeBoard" >
+	<!-- 게시글 조회수 update -->
+	<update id="updateViews" parameterType="int" >
 		<![CDATA[
-			
+			update freeboard set views=views+1 where fbNo=#{fbNo}
+		]]>
+	</update>
+	
+	
+	<!-- 게시글 수정 -->
+	<select id="updateFreeBoard" parameterType="com.nds.webzine.dto.FreeBoard" >
+		<![CDATA[
+			update freeboard set fbWriter=#{fbWriter}, title=#{title}, contents=#{contents}, secret=#{secret}, recordDate=now() where fbNo=#{fbNo}
 		]]>
 	</select>
 	
 	<!-- 게시글 삭제 -->
-	<select id="deleteFreeBoard" >
+	<select id="deleteFreeBoard" parameterType="int" >
 		<![CDATA[
-			
+			delete from freeboard where fbNo=#{fbNo}
 		]]>
 	</select>
 	

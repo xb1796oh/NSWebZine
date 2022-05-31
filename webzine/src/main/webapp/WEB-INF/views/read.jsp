@@ -101,12 +101,27 @@
                     <div class="contact-content mb-100">
                         <a href="#" class="d-block mb-50"><img src="img/core-img/logo.png" alt=""></a>
 						
-						<div class="single-contact-info d-flex align-items-center">
-                            <div class="icon mr-15">
+						<div class="single-contact-info align-items-center" style="display:inline-block;">
+                            <div class="icon mr-15" style="display:inline-block;">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrd7BKSkv3wrkz8trLeNxfx_5Qr_b-EMzJXbfmVbDHcDbdTVSmnez800BYmBXTuHU_JXY&usqp=CAU" alt="">
                             </div>
-                            <h3>${fb.title }</h3>
+                            <h3 style="display:inline-block;">${fb.title }</h3>
                         </div>
+                        <c:if test="${fb.fbWriter eq id }">
+                        <div class="single-contact-info  align-items-center" id="delete" style="display:inline-block; float: right; margin-left:2%; "  onClick='erase(${fb.fbNo});'>
+                            <p style="display:inline-block; cursor:pointer; padding-top:25px;">삭제</p>
+							<div class="icon mr-10"  style="display:inline-block;">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2PnUYZ6QPsNPv-ULQceoH5B6Pw9oQ_KwV71xUKJSQ-xdmbK5_FOJsEuLWD3r8RZAXLwA&usqp=CAU" style="cursor:pointer;" alt="">
+                            </div>   
+                        </div>
+                        <div class="single-contact-info  align-items-center" id="modify" style="display:inline-block; float: right;"  onClick='modify(${fb.fbNo});'>
+                            <p style="display:inline-block; cursor:pointer; padding-top:25px;">수정</p>
+                            <div class="icon mr-10"  style="display:inline-block;">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAfjlEqpfL9kAAGWLl5EfAK8bExNN6GLJvihu8o-4OPBKyjWPXHZSx6pBJ2CbcnhBzFY8&usqp=CAU" style="cursor:pointer;" alt="">
+                            </div>
+                        </div>
+                        </c:if>
+                        <br> <br>
 						<div class="single-contact-info  align-items-center" style="display:inline-block;">
                             <div class="icon mr-15"  style="display:inline-block;">
                                 <img src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">
@@ -123,7 +138,7 @@
                             </div>
                             <p style="display:inline-block;">${fb.recordDate }</p>                            
                         </div>
-						<div class="single-contact-info  align-items-center" style="float: right;  margin-right:5%;">
+						<div class="single-contact-info  align-items-center" style="float: right;  ">
                             <div class="icon mr-15"  style="display:inline-block;">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJh6bT3EL7JNd5edGWcNizG70ofq6s-OlKypPkuAVm-BYPawC_M243gylm9anxIPRyRUs&usqp=CAU" alt="">
                             </div>
@@ -171,6 +186,41 @@
     	   	console.error(error);
 	    });
 	});
+    
+    function modify(fbNo){
+    	let form = document.createElement('form');
+    	let param = document.createElement('input');
+    	param.setAttribute('type', 'hidden');
+    	param.setAttribute('name', 'fbNo');
+    	param.setAttribute('value', fbNo);
+    	
+    	form.appendChild(param);
+    	form.setAttribute('method', 'post');
+    	form.setAttribute('action', '/modify');
+    	
+    	let fbtr = document.getElementById('modify');
+    	fbtr.appendChild(form);
+    	form.submit();
+    }
+    
+    function erase(fbNo){
+    	var result = confirm("내용을 정말 삭제하시겠습니까?");
+    	if(result){
+    		let form = document.createElement('form');
+        	let param = document.createElement('input');
+        	param.setAttribute('type', 'hidden');
+        	param.setAttribute('name', 'fbNo');
+        	param.setAttribute('value', fbNo);
+        	
+        	form.appendChild(param);
+        	form.setAttribute('method', 'post');
+        	form.setAttribute('action', '/delete');
+        	
+        	let fbtr = document.getElementById('delete');
+        	fbtr.appendChild(form);
+        	form.submit();
+		}
+    }
     
     </script>
 </body>

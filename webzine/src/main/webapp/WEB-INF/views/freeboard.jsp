@@ -116,16 +116,23 @@
 										<th scope="col">조회</th>
 									</tr>
 								</thead>
+								
 								<tbody>
 									<c:forEach var="freeboard" items="${fblist }">
 										<tr id="fblist" style="cursor:pointer" onClick='readFB(${freeboard.fbNo});'>
 								    		<td>${freeboard.title }</td>
 								    		<td>
+								    			<div class="single-contact-info  align-items-center" style="display:inline-block;">
 								    			<c:set var="writer" value="${freeboard.fbWriter }" />
 								    			<c:if test="${freeboard.secret eq true }">
+								    				<div class="icon mr-15"  style="display:inline-block;">
+                                						<img src="https://mblogthumb-phinf.pstatic.net/20150831_112/koowq_1441021325694Id6se_PNG/%C0%DA%B9%B0%BC%E8_%BF%F8%C7%FC_%BE%C6%C0%CC%C4%DC-02.png?type=w420" alt="">
+                            						</div>
 								    				<c:forEach var="secret" begin="1" end="${fn:length(writer) }">*</c:forEach>
+								    				
 								    			</c:if>
 								    			<c:if test="${freeboard.secret eq false }">${freeboard.fbWriter }</c:if>
+								    			</div>
 								    		</td>
 								    		<td>${freeboard.recordDate }</td>
 								    		<td>${freeboard.views }</td>

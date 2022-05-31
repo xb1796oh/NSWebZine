@@ -179,7 +179,7 @@
         					$("#password").val("");
         					$("#id").focus();
         				} else{
-        					location.href = '${pageContext.request.contextPath}/';
+        					location.href = '${pageContext.request.contextPath}/main';
         				}
         			}
         		});

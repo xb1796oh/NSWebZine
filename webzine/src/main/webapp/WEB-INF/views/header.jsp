@@ -45,7 +45,7 @@
                                 				<a href="${pageContext.request.contextPath}/login" class="pointer">login</a>
                                 			</c:when>
                                 			<c:otherwise>
-                                				<a id="logout" class="pointer">logout</a>
+                                				<a href="${pageContext.request.contextPath}/logout" id="logout" class="pointer">logout</a>
                                 			</c:otherwise>
                                 		</c:choose>
                                 	</li>
@@ -64,7 +64,7 @@
 			alert("로그인 후 사용가능합니다");
 			location.href="${pageContext.request.contextPath}/login";
 		} else {
-			location.href="${pageContext.request.contextPath}/board";
+			location.href="${pageContext.request.contextPath}/board?page=1";
 		}
 		
 	}
