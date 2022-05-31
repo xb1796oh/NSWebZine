@@ -8,7 +8,7 @@ public class FreeBoard {
 	String title;
 	String contents;
 	boolean secret;
-	Date recordDate;
+	String recordDate;
 	int views;
 	
 	public int getFbNo() {
@@ -41,10 +41,10 @@ public class FreeBoard {
 	public void setSecret(boolean secret) {
 		this.secret = secret;
 	}
-	public Date getRecordDate() {
+	public String getRecordDate() {
 		return recordDate;
 	}
-	public void setRecordDate(Date recordDate) {
+	public void setRecordDate(String recordDate) {
 		this.recordDate = recordDate;
 	}
 	public int getViews() {
