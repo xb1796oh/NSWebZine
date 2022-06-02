@@ -93,12 +93,12 @@
         </div>
     </section>
     
-   <!-- ##### Contact Area Start ##### -->
+   <!-- ##### Freeboard ##### -->
     <section class="contact-area section-padding-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <div class="contact-content mb-100">
+                    <div class="contact-content mb-30">
                         <a href="#" class="d-block mb-50"><img src="img/core-img/logo.png" alt=""></a>
 						
 						<div class="single-contact-info align-items-center" style="display:inline-block;">
@@ -154,6 +154,134 @@
             </div>
         </div>
     </section>
+
+
+	
+    <!-- ##### Replies ##### -->
+    <section class="elements-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="accordions mb-100" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel single-accordion">
+                        	<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom:30px;">
+                    			<div class="row">
+                        			<div class="col-11" style="padding-top: 35px; padding-bottom: 20px; margin:auto;">
+                                		<div class="text">
+                                			<h5>The Best Reporters</h5>
+                                            <textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
+                                            <button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
+                                         	<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
+                                         	<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
+											<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
+                                		</div>
+                            		</div>
+                        		</div>
+                        	</div>
+                            <h6><a role="button" class="" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Replies
+                                    <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                    <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    </a></h6>
+                            <div id="collapseOne" class="accordion-content collapse show" >
+                				<div class="col-11" style="margin:auto;">
+                    				<div class="row">
+                        				<div class="col-12" style="margin-top : 30px; margin-bottom: 30px;">
+                                			<div class="text" style="margin-bottom:20px;" >
+                                				<h5 style="display:inline-block;">The Best Reporters</h5>
+                                				&nbsp;&nbsp;<span>21:00:30 0</span><br>
+                                				<div class="col-9" style="display:inline-block;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
+                                				<div class="col-2" id="accordion2" style="display:inline-block;  float:right;">
+                                					<a role="button" class="" aria-expanded="true" aria-controls="collapseOne2" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2">답글</a>
+                                				</div>
+                                				<div class="panel single-accordion">
+                                					<div id="collapseOne2" class="accordion-content collapse show" >
+                    									<div class="col-11" style="outline: solid gray; margin-top:30px; margin-bottom: 30px;">
+                    										<div class="row">
+                        										<div class="col-12" style="padding-top: 35px; padding-bottom: 20px; margin:0 auto;">
+                                									<div class="text">
+                                										<h5>The Best Reporters</h5>
+                                            							<textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
+                                            							<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
+                                         								<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
+                                         								<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
+																		<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
+                                									</div>
+                            									</div>
+                        									</div>
+                        								</div>
+                                					</div>
+                                					<div class="col-9">
+                                						<h5><a role="button" class="" aria-expanded="true" aria-controls="collapseOne1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">답글보기
+                                    							<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                    							<span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    					</a></h5>
+                                					</div>
+                                				<div id="accordion1"></div>
+                                				<div class="panel single-accordion" style="margin:0 auto;">
+                           							<div id="collapseOne1" class="accordion-content collapse show" >
+                										<div class="col-11" style="margin:auto;">
+                    										<div class="row">
+                        										<div class="col-12" style="margin-top : 30px; margin-bottom: 30px;">
+                                									<div class="text" style="margin-bottom:20px;" >
+                                										<h5 style="display:inline-block;">The Best Reporters</h5>
+                                										&nbsp;&nbsp;<span>21:00:30 0</span>
+                                										<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
+                                									</div>
+                            									</div>
+                        									</div>
+                        									<div class="row">
+                        										<div class="col-12" style="margin-top : 30px; margin-bottom: 30px;">
+                                									<div class="text" style="margin-bottom:20px;" >
+                                										<h5 style="display:inline-block;">The Best Reporters</h5>
+                                										&nbsp;&nbsp;<span>21:00:30 0</span>
+                                										<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
+                                									</div>
+                            									</div>
+                        									</div>
+                        									<div class="row">
+                        										<div class="col-12" style="margin-top : 30px; margin-bottom: 30px;">
+                                									<div class="text" style="margin-bottom:20px;" >
+                                										<h5 style="display:inline-block;">The Best Reporters</h5>
+                                										&nbsp;&nbsp;<span>21:00:30 0</span>
+                                										<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
+                                									</div>
+                            									</div>
+                        									</div>
+                    									</div>
+                									</div>
+                								</div>
+                                			</div>
+                            			</div>
+                        			</div>
+                        			<div class="row">
+                        				<div class="col-12" style="margin-top : 30px; margin-bottom: 30px;">
+                                			<div class="text" style="margin-bottom:20px;" >
+                                				<h5 style="display:inline-block;">The Best Reporters</h5>
+                                					&nbsp;&nbsp;<span>21:00:30 0</span>
+                                					<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
+                                				</div>
+                            				</div>
+                        				</div>
+                        			<div class="row">
+                        				<div class="col-12" style="margin-top : 30px; margin-bottom: 30px;">
+                                			<div class="text" style="margin-bottom:20px;" >
+                                				<h5 style="display:inline-block;">The Best Reporters</h5>
+                                				&nbsp;&nbsp;<span>21:00:30 0</span>
+                                				<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
+                                			</div>
+                            			</div>
+                        			</div>
+                    			</div>
+                    				
+                			</div>
+                		</div>
+                    </div>
+                </div></div>
+			</div>
+		</div>
+    </section>
+    <!-- ##### Elements Area End ##### -->
+	
 
     <jsp:include page="footer.jsp" flush="true"/>
     
