@@ -10,11 +10,14 @@
 	
 	<!-- 댓글 작성하기 -->
 	<insert id="insertComment" parameterType="com.nds.webzine.dto.Comments" >
-		insert into comments(commentNo, fbNo, commentWriter, comments, secret, recordDate, replyDepth, modification) 
-		values(#{commentNo}, #{fbNo}, #{commentWriter}, #{comments}, #{secret}, now(), #{replyDepth}, #{modification});
+		insert into comments(commentNo, fbNo, commentWriter, comments, secret, replyCount, recordDate, replyDepth, modification) 
+		values(#{commentNo}, #{fbNo}, #{commentWriter}, #{comments}, #{secret}, 0, now(), 0, false);
 	</insert>
 	
-	
+	<!-- 글에 대한 댓글리스트 가져오기 -->
+	<select id="selectComments" parameterType="int" resultType="com.nds.webzine.dto.Comments" >
+		select commentNo, fbNo, commentWriter, comments, secret, replyCount, DATE_FORMAT(recordDate, '%Y-%m-%d %H:%i') recordDate, replyDepth, modification from comments where fbNo=#{fbNo }
+	</select>
 	
 	
 	

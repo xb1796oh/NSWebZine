@@ -1,5 +1,7 @@
 package com.nds.webzine.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +13,7 @@ public interface CommentDAO {
 	
 	public Integer maxCommentsNo() throws Exception;
 	public void insertComment(Comments comment) throws Exception;
+	public List<Comments> selectComments(int fbNo) throws Exception;
 	
 	/*
 	public double subscribedRatio() throws Exception;

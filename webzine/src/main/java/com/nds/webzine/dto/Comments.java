@@ -6,6 +6,7 @@ public class Comments {
 	String commentWriter;
 	String comments;
 	boolean secret;
+	int replyCount;
 	String recordDate;
 	int replyDepth;
 	String commentId;
@@ -41,6 +42,12 @@ public class Comments {
 	}
 	public void setSecret(boolean secret) {
 		this.secret = secret;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 	public String getRecordDate() {
 		return recordDate;

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nds.webzine.dto.Comments;
 import com.nds.webzine.dto.FreeBoard;
 import com.nds.webzine.dto.PageInfo;
+import com.nds.webzine.service.CommentsService;
 import com.nds.webzine.service.FreeBoardService;
 
 @Controller
@@ -25,6 +27,9 @@ public class FreeBoardController {
 
 	@Autowired
 	FreeBoardService fbservice;
+	
+	@Autowired
+	CommentsService commentService;
 	
 	@RequestMapping("/board")
 	public ModelAndView freeboard(Model model, HttpServletRequest request,
@@ -80,6 +85,10 @@ public class FreeBoardController {
 			fbservice.updateViews(fbNo);
 			FreeBoard fb = fbservice.readFreeBoard(fbNo);
 			mv.addObject("fb", fb);
+			
+			List<Comments> comments = commentService.showComments(fbNo);
+			mv.addObject("comments", comments);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

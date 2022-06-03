@@ -1,5 +1,7 @@
 package com.nds.webzine.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,11 @@ public class CommentsServiceImpl implements CommentsService {
 		
 		// insert
 		commentDAO.insertComment(comment);
+	}
+
+	@Override
+	public List<Comments> showComments(int fbNo) throws Exception {
+		return commentDAO.selectComments(fbNo);
 	}
 
 	

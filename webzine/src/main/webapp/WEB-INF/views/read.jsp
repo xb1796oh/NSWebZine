@@ -186,24 +186,30 @@
                                     </a></h6>
                           	<div id="collapseOne" class="accordion-content collapse show" >
                 				<div class="col-11" style="margin:auto;">
+                					<c:forEach items="${comments }" var="comment" varStatus="status">
                     				<div class="row">
                         				<div class="col-12" style="margin-top : 30px;">
-                                			<div class="text">
-                                				<h5 style="display:inline-block;">The Best Reporters</h5>
-                                				&nbsp;&nbsp;<span>21:00:30 0</span><br>
-                                				<div class="col-10" style="display:inline-block;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
-                                				<div class="col-2" id="comment1" style="display:inline-block;  float:right; text-align:right;">
-                                					<a role="button" class="" aria-expanded="true" aria-controls="comment-div1" data-toggle="collapse" data-parent="#comment1" href="#comment-div1">답글1</a>
+                                			<div class="text" >
+                                				<c:set var="writer" value="${comment.commentWriter }" />
+                                				<c:if test="${comment.secret eq true }">
+                                					<h5 style="display:inline-block;"><c:forEach var="secret" begin="1" end="${fn:length(writer) }">*</c:forEach></h5>
+								    			</c:if>
+                                				<c:if test="${comment.secret eq false }"><h5 style="padding-top:5px; display:inline-block;">${comment.commentWriter }</h5></c:if>
+                                				&nbsp;&nbsp;&nbsp;&nbsp;<span>${comment.recordDate }</span>
+                                				<c:if test="${comment.modification eq true}">(수정됨)</c:if><br>
+                                				<div class="col-10" style="display:inline-block;">${comment.comments }</div>
+                                				<div class="col-2" id="comment${status.count}" style="display:inline-block;  float:right; text-align:right;">
+                                					<a role="button" class="" aria-expanded="true" aria-controls="comment-div${status.count}" data-toggle="collapse" data-parent="#comment${status.count}" href="#comment-div${status.count}">답글</a>
                                 				</div>
                                 				<div class="panel single-accordion">
-                                					<div id="comment-div1" class="accordion-content collapse show" >
+                                					<div id="comment-div${status.count}" class="accordion-content collapse show" >
                     									<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom: 30px;">
                     										<div class="row">
                         										<div class="col-12" style="padding-top: 35px; padding-bottom: 20px; margin:0 auto;">
                                 									<div class="text">
-                                										<h5>The Best Reporters</h5>
+                                										<h5>${id }</h5>
                                             							<textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
-                                            							<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
+                                            							<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">답글</button>
                                          								<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
                                          								<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
 																		<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
@@ -213,16 +219,16 @@
                         								</div>
                                 					</div>
                                 					
+                                					<c:if test="${comment.replyCount > 0 }">
                                 					<div class="col-9">
-                                						<h5><a role="button" class="" aria-expanded="true" aria-controls="replies-div1" data-toggle="collapse" data-parent="#replies1" href="#replies-div1">답글보기
+                                						<h5><a role="button" class="" aria-expanded="true" aria-controls="replies-div${status.count}" data-toggle="collapse" data-parent="#replies${status.count}" href="#replies-div${status.count}">답글 <c:out value="${comment.replyCount }" />개 보기
                                     							<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                     							<span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                     					</a></h5>
                                 					</div>
-                                					
-                                					<div id="replies1"></div>
+                                					<div id="replies${status.count}"></div>
                                 					<div class="panel single-accordion" style="margin:0 auto;">
-                           								<div id="replies-div1" class="accordion-content collapse show" >
+                           								<div id="replies-div${status.count}" class="accordion-content collapse show" >
                 											<div class="col-11" style="margin:auto;">
                     											<div class="row">
                         											<div class="col-12" style="margin-top : 30px;">
@@ -328,156 +334,12 @@
                                 							</div>
                             							</div>
                         							</div>
+                        							</c:if>
                         						</div>
                             				</div>
                         				</div>
                     				</div>
-                    				<div class="row">
-                        				<div class="col-12" style="margin-top : 30px;">
-                                			<div class="text">
-                                				<h5 style="display:inline-block;">The Best Reporters</h5>
-                                				&nbsp;&nbsp;<span>21:00:30 0</span><br>
-                                				<div class="col-10" style="display:inline-block;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
-                                				<div class="col-2" id="comment1" style="display:inline-block;  float:right; text-align:right;">
-                                					<a role="button" class="" aria-expanded="true" aria-controls="comment-div1" data-toggle="collapse" data-parent="#comment1" href="#comment-div1">답글1</a>
-                                				</div>
-                                				<div class="panel single-accordion">
-                                					<div id="comment-div1" class="accordion-content collapse show" >
-                    									<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom: 30px;">
-                    										<div class="row">
-                        										<div class="col-12" style="padding-top: 35px; padding-bottom: 20px; margin:0 auto;">
-                                									<div class="text">
-                                										<h5>The Best Reporters</h5>
-                                            							<textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
-                                            							<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
-                                         								<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
-                                         								<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
-																		<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
-                                									</div>
-                            									</div>
-                        									</div>
-                        								</div>
-                                					</div>
-                                					
-                                					<div class="col-9">
-                                						<h5><a role="button" class="" aria-expanded="true" aria-controls="replies-div1" data-toggle="collapse" data-parent="#replies1" href="#replies-div1">답글보기
-                                    							<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                    							<span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                    					</a></h5>
-                                					</div>
-                                					
-                                					<div id="replies1"></div>
-                                					<div class="panel single-accordion" style="margin:0 auto;">
-                           								<div id="replies-div1" class="accordion-content collapse show" >
-                											<div class="col-11" style="margin:auto;">
-                    											<div class="row">
-                        											<div class="col-12" style="margin-top : 30px;">
-                                										<div class="text" style="margin-bottom:20px;" >
-                                											<h5 style="display:inline-block;">The Best Reporters</h5>
-                                											&nbsp;&nbsp;<span>21:00:30 0</span>
-                                											<div class="col-10" style="display:inline-block;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
-                                											<div class="col-2" id="replies2" style="display:inline-block;  float:right; text-align:right;">
-                                												<a role="button" class="" aria-expanded="true" aria-controls="replies-div2" data-toggle="collapse" data-parent="#replies2" href="#replies-div2">답글2</a>
-                                											</div>
-                                											
-                                											<div class="panel single-accordion">
-                                												<div id="replies-div2" class="accordion-content collapse show" >
-                                													<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom: 30px;">
-                    																	<div class="row">
-                        																	<div class="col-12" style="padding-top: 35px; padding-bottom: 20px; margin:0 auto;">
-                                																<div class="text">
-                                																	<h5>The Best Reporters</h5>
-                                            														<textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
-                                            														<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
-                                         															<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
-                                         															<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
-																									<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
-                                																</div>
-                            																</div>
-                        																</div>
-                        															</div>
-                                												</div>
-                                											</div>
-                                										</div>
-                            										</div>
-                        										</div>
-                                							</div>
-                            							</div>
-                            							<div id="replies-div1" class="accordion-content collapse show" >
-                											<div class="col-11" style="margin:auto;">
-                    											<div class="row">
-                        											<div class="col-12" style="margin-top : 30px;">
-                                										<div class="text" style="margin-bottom:20px;" >
-                                											<h5 style="display:inline-block;">The Best Reporters</h5>
-                                											&nbsp;&nbsp;<span>21:00:30 0</span>
-                                											<div class="col-10" style="display:inline-block;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
-                                											<div class="col-2" id="replies2" style="display:inline-block;  float:right; text-align:right;">
-                                												<a role="button" class="" aria-expanded="true" aria-controls="replies-div2" data-toggle="collapse" data-parent="#replies2" href="#replies-div2">답글2</a>
-                                											</div>
-                                											
-                                											<div class="panel single-accordion">
-                                												<div id="replies-div2" class="accordion-content collapse show" >
-                                													<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom: 30px;">
-                    																	<div class="row">
-                        																	<div class="col-12" style="padding-top: 35px; padding-bottom: 20px; margin:0 auto;">
-                                																<div class="text">
-                                																	<h5>The Best Reporters</h5>
-                                            														<textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
-                                            														<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
-                                         															<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
-                                         															<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
-																									<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
-                                																</div>
-                            																</div>
-                        																</div>
-                        															</div>
-                                												</div>
-                                											</div>
-                                										</div>
-                            										</div>
-                        										</div>
-                                							</div>
-                            							</div>
-                            							<div id="replies-div1" class="accordion-content collapse show" >
-                											<div class="col-11" style="margin:auto;">
-                    											<div class="row">
-                        											<div class="col-12" style="margin-top : 30px;">
-                                										<div class="text" style="margin-bottom:20px;" >
-                                											<h5 style="display:inline-block;">The Best Reporters</h5>
-                                											&nbsp;&nbsp;<span>21:00:30 0</span>
-                                											<div class="col-10" style="display:inline-block;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat </div>
-                                											<div class="col-2" id="replies2" style="display:inline-block;  float:right; text-align:right;">
-                                												<a role="button" class="" aria-expanded="true" aria-controls="replies-div2" data-toggle="collapse" data-parent="#replies2" href="#replies-div2">답글2</a>
-                                											</div>
-                                											
-                                											<div class="panel single-accordion">
-                                												<div id="replies-div2" class="accordion-content collapse show" >
-                                													<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom: 30px;">
-                    																	<div class="row">
-                        																	<div class="col-12" style="padding-top: 35px; padding-bottom: 20px; margin:0 auto;">
-                                																<div class="text">
-                                																	<h5>The Best Reporters</h5>
-                                            														<textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
-                                            														<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
-                                         															<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
-                                         															<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
-																									<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
-                                																</div>
-                            																</div>
-                        																</div>
-                        															</div>
-                                												</div>
-                                											</div>
-                                										</div>
-                            										</div>
-                        										</div>
-                                							</div>
-                            							</div>
-                        							</div>
-                        						</div>
-                            				</div>
-                        				</div>
-                    				</div>
+                    				</c:forEach>
                 				</div>
                 			</div>
                     	</div>
@@ -534,7 +396,7 @@
     	$.ajax({
     		type: "post",
     		url: "/writecomment",
-    		data: {"fbNo": fbNo, "commentWriter": id, "comments": $("#comments").val(), "secret": $("#commentSecret").val(), "replyDepth": 0, "modification": 0 },
+    		data: {"fbNo": fbNo, "commentWriter": id, "comments": $("#comments").val(), "secret": $("#commentSecret").val()},
     		dataType: "text",
     		success:function(data){
     			
