@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nds.webzine.dao.CommentDAO">
+
+	<!-- 댓글번호 구하기 (pk) -->
+	<select id="maxCommentsNo" resultType="Integer">
+		select max(commentNo) from comments
+	</select>
+	
+	<!-- 댓글 작성하기 -->
+	<insert id="insertComment" parameterType="com.nds.webzine.dto.Comments" >
+		insert into comments(commentNo, fbNo, commentWriter, comments, secret, recordDate, replyDepth, modification) 
+		values(#{commentNo}, #{fbNo}, #{commentWriter}, #{comments}, #{secret}, now(), #{replyDepth}, #{modification});
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 전체 게시글 수 -->
+	<select id="fbNum" resultType="int" >
+		<![CDATA[
+			select count(*) from freeboard
+		]]>
+	</select>
+	
+	<!-- 게시글 리스트(페이징 적용) -->
+	<select id="fbList" parameterType="int" resultType="com.nds.webzine.dto.Comments" >
+		<![CDATA[
+			select fbNo, fbWriter, title, contents, secret,  DATE_FORMAT(recordDate, '%Y-%m-%d %H:%i') recordDate , views  from freeboard order by recordDate desc limit #{startrow}, 9
+		]]>
+	</select>
+	
+	
+	<!-- 게시글 읽기 -->
+	<select id="readFreeBoard" parameterType="int" resultType="com.nds.webzine.dto.Comments" >
+		<![CDATA[
+			select fbNo, fbWriter, title, contents, secret,  DATE_FORMAT(recordDate, '%Y-%m-%d %H:%i') recordDate , views from freeboard where fbNo=#{fbNo}
+		]]>
+	</select>
+	
+	<!-- 게시글 조회수 update -->
+	<update id="updateViews" parameterType="int" >
+		<![CDATA[
+			update freeboard set views=views+1 where fbNo=#{fbNo}
+		]]>
+	</update>
+	
+	
+	<!-- 게시글 수정 -->
+	<select id="updateFreeBoard" parameterType="com.nds.webzine.dto.FreeBoard" >
+		<![CDATA[
+			update freeboard set fbWriter=#{fbWriter}, title=#{title}, contents=#{contents}, secret=#{secret}, recordDate=now() where fbNo=#{fbNo}
+		]]>
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<select id="deleteFreeBoard" parameterType="int" >
+		<![CDATA[
+			delete from freeboard where fbNo=#{fbNo}
+		]]>
+	</select>
+	
+</mapper>

@@ -165,15 +165,17 @@
                     <div class="accordions mb-100" id="accordion" role="tablist" aria-multiselectable="true">
                         <div class="panel single-accordion">
                         	<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom:30px;">
-                    			<div class="row">
-                        			<div class="col-11" style="padding-top: 35px; padding-bottom: 20px; margin:auto;">
+                    			<div class="row">                                                                                                                                                                                                                                                                                                                                                                      			<div class="col-11" style="padding-top: 35px; padding-bottom: 20px; margin:auto;">
                                 		<div class="text">
-                                			<h5>The Best Reporters</h5>
-                                            <textarea name="message" class="form-control" id="message" cols="30" rows="3" placeholder="Message"></textarea>
-                                            <button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="submit">댓글</button>
-                                         	<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
+                                			<h5>${id }</h5>
+                                            <textarea name="comments" class="form-control" id="comments" cols="30" rows="3" placeholder="Message"></textarea>
+                                            <button style="float:right; margin-left:10px; margin-top:8px;" id="commentBtn" class="btn" type="button" onclick="writeComment(${fbNo }, ${id});">댓글</button>
+                                         	<button style="float:right; margin-top:8px;" class="btn" type="button">취소</button>
                                          	<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
-											<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
+											<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="commentSecretCheck" style="width:20px; height:20px;" checked></div>
+                                		
+                                			<input type="hidden" id="fbNo" name="fbNo" value="${fbNo }"/>
+                                			<input type="hidden" id="commentSecret" />
                                 		</div>
                             		</div>
                         		</div>
@@ -517,7 +519,29 @@
 	    .catch((error) => {
     	   	console.error(error);
 	    });
+		
 	});
+    
+    function writeComment(fbNo, id){
+    	
+    	if($("#commentSecretCheck").is(':checked')){
+  			 $("#commentSecret").attr("value", "1");
+  		 } else {
+  			 $("#commentSecret").attr("value", "0");
+  		 }
+    	alert($("#comments").val());
+    	
+    	$.ajax({
+    		type: "post",
+    		url: "/writecomment",
+    		data: {"fbNo": fbNo, "commentWriter": id, "comments": $("#comments").val(), "secret": $("#commentSecret").val(), "replyDepth": 0, "modification": 0 },
+    		dataType: "text",
+    		success:function(data){
+    			
+    		}
+    	});
+    }
+    
     
     function modify(fbNo){
     	let form = document.createElement('form');

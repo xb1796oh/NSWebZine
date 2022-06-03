@@ -5,12 +5,12 @@ public class Comments {
 	int fbNo;
 	String commentWriter;
 	String comments;
-	boolean secrete;
+	boolean secret;
 	String recordDate;
 	int replyDepth;
 	String commentId;
 	int replyNo;
-	boolean modify;
+	boolean modification;
 	
 	public int getCommentNo() {
 		return commentNo;
@@ -36,11 +36,11 @@ public class Comments {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	public boolean isSecrete() {
-		return secrete;
+	public boolean isSecret() {
+		return secret;
 	}
-	public void setSecrete(boolean secrete) {
-		this.secrete = secrete;
+	public void setSecret(boolean secret) {
+		this.secret = secret;
 	}
 	public String getRecordDate() {
 		return recordDate;
@@ -66,10 +66,11 @@ public class Comments {
 	public void setReplyNo(int replyNo) {
 		this.replyNo = replyNo;
 	}
-	public boolean isModify() {
-		return modify;
+	public boolean isModification() {
+		return modification;
 	}
-	public void setModify(boolean modify) {
-		this.modify = modify;
+	public void setModification(boolean modification) {
+		this.modification = modification;
 	}
+	
 }

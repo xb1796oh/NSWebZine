@@ -68,9 +68,14 @@ public class FreeBoardController {
 	
 
 	@RequestMapping("/read")
-	public ModelAndView read(int fbNo) {
+	public ModelAndView read(int fbNo, Model model, HttpServletRequest request) {
 		
 		ModelAndView mv = new ModelAndView("read");
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		mv.addObject("id", id);
+		mv.addObject("fbNo", fbNo);
+		
 		try {
 			fbservice.updateViews(fbNo);
 			FreeBoard fb = fbservice.readFreeBoard(fbNo);
