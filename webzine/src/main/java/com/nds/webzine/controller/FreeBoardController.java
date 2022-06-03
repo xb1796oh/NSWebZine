@@ -88,6 +88,7 @@ public class FreeBoardController {
 			
 			List<Comments> comments = commentService.showComments(fbNo);
 			mv.addObject("comments", comments);
+			mv.addObject("commentsNum", comments.size());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

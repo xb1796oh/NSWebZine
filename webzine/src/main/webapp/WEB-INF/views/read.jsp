@@ -180,7 +180,7 @@
                             		</div>
                         		</div>
                         	</div>
-                            <h6><a role="button" class="" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Replies
+                            <h6><a role="button" class="" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Replies&nbsp;&nbsp;&nbsp;&nbsp;<c:if test="${commentsNum > 0 }">${commentsNum }</c:if>
                                     <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                     <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                     </a></h6>
@@ -192,13 +192,14 @@
                                 			<div class="text" >
                                 				<c:set var="writer" value="${comment.commentWriter }" />
                                 				<c:if test="${comment.secret eq true }">
-                                					<h5 style="display:inline-block;"><c:forEach var="secret" begin="1" end="${fn:length(writer) }">*</c:forEach></h5>
+                                					<h5 style="display:inline-block;"><img src="https://mblogthumb-phinf.pstatic.net/20150831_112/koowq_1441021325694Id6se_PNG/%C0%DA%B9%B0%BC%E8_%BF%F8%C7%FC_%BE%C6%C0%CC%C4%DC-02.png?type=w420" alt="" style="width:30px; ">&nbsp;&nbsp;<c:forEach var="secret" begin="1" end="${fn:length(writer) }">*</c:forEach></h5>
 								    			</c:if>
-                                				<c:if test="${comment.secret eq false }"><h5 style="padding-top:5px; display:inline-block;">${comment.commentWriter }</h5></c:if>
+                                				<c:if test="${comment.secret eq false }"><h5 style="padding-top:5px; display:inline-block;"><img style="width:30px; " src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">${comment.commentWriter }</h5></c:if>
                                 				&nbsp;&nbsp;&nbsp;&nbsp;<span>${comment.recordDate }</span>
-                                				<c:if test="${comment.modification eq true}">(수정됨)</c:if><br>
+                                				<c:if test="${comment.modification eq true}">(수정됨)</c:if>
+                                				<c:if test="${comment.commentWriter eq id}">&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span></c:if><br>
                                 				<div class="col-10" style="display:inline-block;">${comment.comments }</div>
-                                				<div class="col-2" id="comment${status.count}" style="display:inline-block;  float:right; text-align:right;">
+                                				<div class="col-1" id="comment${status.count}" style="display:inline-block;  float:right; text-align:right;">
                                 					<a role="button" class="" aria-expanded="true" aria-controls="comment-div${status.count}" data-toggle="collapse" data-parent="#comment${status.count}" href="#comment-div${status.count}">답글</a>
                                 				</div>
                                 				<div class="panel single-accordion">
