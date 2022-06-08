@@ -58,7 +58,7 @@
 	
 	<!-- 대댓글리스트 가져오기 -->
 	<select id="selectReplyList" parameterType="map" resultType="com.nds.webzine.dto.Comments" >
-		select commentNo, fbNo, commentWriter, comments, secret, replyCount, DATE_FORMAT(recordDate, '%Y-%m-%d %H:%i') recordDate, replyDepth, modification from comments where fbNo=#{fbNo } and parentCommentNo=#{parentCommentNo }
+		select commentNo, fbNo, parentCommentNo, commentWriter, comments, secret, replyCount, DATE_FORMAT(recordDate, '%Y-%m-%d %H:%i') recordDate, replyDepth, replyNo, modification from comments where fbNo=#{fbNo } and parentCommentNo=#{parentCommentNo }
 	</select>
 
 </mapper>

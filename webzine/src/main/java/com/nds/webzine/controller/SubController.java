@@ -43,7 +43,7 @@ public class SubController {
 	
 	@ResponseBody
 	@PostMapping(value="/writeReply")
-	public String writeReply(@ModelAttribute Comments comment, Model model, HttpServletRequest request) {
+	public Comments writeReply(@ModelAttribute Comments comment, Model model, HttpServletRequest request) {
 		
 		Comments result = null;
 		Integer commentNo = null;
@@ -59,7 +59,7 @@ public class SubController {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return result;
 	}
 	
 	@ResponseBody
