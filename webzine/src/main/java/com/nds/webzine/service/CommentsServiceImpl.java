@@ -1,6 +1,8 @@
 package com.nds.webzine.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class CommentsServiceImpl implements CommentsService {
 	CommentDAO commentDAO;
 	
 	@Override
-	public void createComment(Comments comment) throws Exception {
+	public Integer createComment(Comments comment) throws Exception {
 		
 		// comment 번호 PK 설정
 		Integer commentNo = commentDAO.maxCommentsNo();
@@ -28,12 +30,73 @@ public class CommentsServiceImpl implements CommentsService {
 		
 		// insert
 		commentDAO.insertComment(comment);
+		return commentNo;
 	}
 
 	@Override
-	public List<Comments> showComments(int fbNo) throws Exception {
-		return commentDAO.selectComments(fbNo);
+	public Comments seletCommentByNo(int commentNo) throws Exception {
+		return commentDAO.seletCommentByNo(commentNo);
 	}
+	
+	@Override
+	public List<Comments> showComments(int fbNo) throws Exception {
+		Map<String, Object> commentsMap = new HashMap<String, Object>();
+		commentsMap.put("fbNo", fbNo);
+		commentsMap.put("replyDepth", 0);
+		
+		return commentDAO.selectComments(commentsMap);
+	}
+	
+	@Override
+	public Integer createReply(Comments reply) throws Exception {
+		
+		// comment 번호 PK 설정
+		Integer commentNo = commentDAO.maxCommentsNo();
+		if(commentNo==null) {
+			commentNo = 1;
+		} else {
+			commentNo++;
+			reply.setCommentNo(commentNo);
+		}
+		
+		// 대댓글 순서번호 지정
+		Map<String, Object> replyNoMap = new HashMap<String, Object>();
+		replyNoMap.put("fbNo", reply.getFbNo());
+		replyNoMap.put("parentCommentNo", reply.getParentCommentNo());
+		
+		Integer replyNo = commentDAO.maxReplyNo(replyNoMap);
+		if(replyNo==null) {
+			replyNo = 1;
+		} else {
+			replyNo++;
+		}
+		reply.setReplyNo(replyNo);
+		reply.setReplyCount(0);
+		
+		// 댓글 저장
+		commentDAO.insertReply(reply);
+		
+		// 댓글 replyCount update
+		Map<String, Object> commentUpdate = new HashMap<String, Object>();
+		commentUpdate.put("parentCommentNo", reply.getParentCommentNo());
+		commentUpdate.put("method", "plus");
+		
+		commentDAO.updateReplyCount(commentUpdate);
+		
+		return commentNo;
+	}
+
+	@Override
+	public List<Comments> replyList(int fbNo, int parentCommentNo) throws Exception {
+		Map<String, Object> replySort = new HashMap<String, Object>();
+		replySort.put("fbNo", fbNo);
+		replySort.put("parentCommentNo", parentCommentNo);
+		return commentDAO.selectReplyList(replySort);
+	}
+
+
+
+	
 
 	
 }

@@ -3,6 +3,7 @@ package com.nds.webzine.dto;
 public class Comments {
 	int commentNo;
 	int fbNo;
+	int parentCommentNo;
 	String commentWriter;
 	String comments;
 	boolean secret;
@@ -24,6 +25,12 @@ public class Comments {
 	}
 	public void setFbNo(int fbNo) {
 		this.fbNo = fbNo;
+	}
+	public int getParentCommentNo() {
+		return parentCommentNo;
+	}
+	public void setParentCommentNo(int parentCommentNo) {
+		this.parentCommentNo = parentCommentNo;
 	}
 	public String getCommentWriter() {
 		return commentWriter;
