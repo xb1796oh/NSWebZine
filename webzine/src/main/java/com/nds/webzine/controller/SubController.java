@@ -91,4 +91,17 @@ public class SubController {
 		
 		return result;
 	}
+	
+	@ResponseBody
+	@PostMapping(value="/deleteReply")
+	public Map<String, Object> deleteReply(@RequestParam("commentNo") int commentNo) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			result  = commentService.deleteReply(commentNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

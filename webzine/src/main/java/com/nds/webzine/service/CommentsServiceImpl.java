@@ -104,9 +104,39 @@ public class CommentsServiceImpl implements CommentsService {
 		return commentDAO.selectReplyNumByCommentNo(parentCommentNo);
 	}
 
+	@Override
+	public Map<String, Object> deleteReply(int commentNo) throws Exception {
 	
+		Comments reply = commentDAO.seletCommentByNo(commentNo);
+		Integer replysNum = null;
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("depth", reply.getReplyDepth());
+		result.put("parentNo", reply.getParentCommentNo());
+		
+		// depth=0일 때
+		if(reply.getReplyDepth()==0) {
+			commentDAO.deleteReplies(commentNo);
+			commentDAO.deleteReplyByNo(commentNo);
+			replysNum = commentDAO.selectCommentNumByFbNo(reply.getFbNo());
+		}
+		// depth=1일 때
+		else if(reply.getReplyDepth()==1) {
+			commentDAO.deleteReplyByNo(commentNo);
+			
+			// 댓글 replyCount update
+			Map<String, Object> commentUpdate = new HashMap<String, Object>();
+			commentUpdate.put("parentCommentNo", reply.getParentCommentNo());
+			commentUpdate.put("method", "minus");
+			commentDAO.updateReplyCount(commentUpdate);
+			
+			replysNum = commentDAO.selectReplyNumByCommentNo(reply.getParentCommentNo());
+		}
+		
+		result.put("replysNum", replysNum);
+		return result;
+	}
 
 	
-
 	
 }

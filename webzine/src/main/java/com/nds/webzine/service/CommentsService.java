@@ -1,6 +1,7 @@
 package com.nds.webzine.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nds.webzine.dto.Comments;
 
@@ -13,4 +14,6 @@ public interface CommentsService {
 	public List<Comments> replyList(int fbNo, int parentCommentNo) throws Exception; 
 	public Integer selectCommentNumByFbNo(int fbNo) throws Exception; 
 	public Integer selectReplyNumByCommentNo(int parentCommentNo) throws Exception; 
+	
+	public Map<String, Object> deleteReply(int commentNo) throws Exception; 
 }

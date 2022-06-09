@@ -70,5 +70,16 @@
 	<select id="selectReplyNumByCommentNo" parameterType="int" resultType="Integer" >
 		select replyCount from comments where commentNo=#{parentCommentNo }
 	</select>
+	
+	
+	<!-- 부모가 commentNo인 대댓글 전부 delete -->
+	<delete id="deleteReplies" parameterType="int" >
+		delete from comments where parentCommentNo=#{commentNo }
+	</delete>
+	
+	<!-- commentNo인 댓글 delete -->
+	<delete id="deleteReplyByNo" parameterType="int" >
+		delete from comments where commentNo=#{commentNo }
+	</delete>
 
 </mapper>

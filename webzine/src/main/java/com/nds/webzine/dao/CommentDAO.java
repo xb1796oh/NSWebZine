@@ -24,6 +24,8 @@ public interface CommentDAO {
 	public Integer selectCommentNumByFbNo(int fbNo) throws Exception;
 	public Integer selectReplyNumByCommentNo(int parentCommentNo) throws Exception;
 	
+	public void deleteReplies(int commentNo) throws Exception;
+	public void deleteReplyByNo(int commentNo) throws Exception;
 	/*
 	public double subscribedRatio() throws Exception;
 	public boolean memberCheck(Map<String, String> map) throws Exception;

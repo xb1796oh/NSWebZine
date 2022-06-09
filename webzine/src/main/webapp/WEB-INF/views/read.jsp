@@ -168,7 +168,7 @@
                                 		<div class="text">
                                 			<h5>${id }</h5>
                                             <textarea name="comments" class="form-control" id="comments" cols="30" rows="3" placeholder="Message"></textarea>
-                                            <button style="float:right; margin-left:10px; margin-top:8px;" id="commentBtn" class="btn" type="button" onclick="writeComment(${fbNo }, ${id});">댓글</button>
+                                            <button style="float:right; margin-left:10px; margin-top:8px;" id="commentBtn" class="btn" type="button" onclick="writeComment(${fbNo }, ${id}, this);">댓글</button>
                                          	<button style="float:right; margin-top:8px;" class="btn" type="button">취소</button>
                                          	<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
 											<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="commentSecretCheck" style="width:20px; height:20px;" checked></div>
@@ -196,7 +196,7 @@
                                 				<c:if test="${comment.secret eq false }"><h5 style="padding-top:5px; display:inline-block;"><img style="width:30px; " src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">${comment.commentWriter }</h5></c:if>
                                 				&nbsp;&nbsp;&nbsp;&nbsp;<span>${comment.recordDate }</span>
                                 				<c:if test="${comment.modification eq true}">(수정됨)</c:if>
-                                				<c:if test="${writer eq id}">&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="alert('수정');">수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="alert('삭제?');">삭제</span></c:if><br>
+                                				<c:if test="${writer eq id}">&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="alert('수정');">수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="deleteReply(${comment.commentNo}, this);">삭제</span></c:if><br>
                                 				<div class="col-10" style="display:inline-block;">${comment.comments }</div>
                                 				<div class="col-1" id="comment${comment.commentNo}" style="display:inline-block;  float:right; text-align:right;">
                                 					<a role="button" class="" aria-expanded="true" aria-controls="comment-div${comment.commentNo }" data-toggle="collapse" data-parent="#comment${comment.commentNo }" href="#comment-div${comment.commentNo }">답글</a>
@@ -264,10 +264,62 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
     
+    function deleteReply(commentNo, thisbutton){
+    	
+    	var result = confirm("댓글을 삭제하시겠습니까?");
+    	if(result){
+    		$.ajax({
+        		type: "post",
+        		url: "/deleteReply",
+        		data: {"commentNo": commentNo },
+            	dataType: "text",
+            	success:function(data){
+            		var depth = JSON.parse(data).depth;
+            		var replysNum = JSON.parse(data).replysNum;
+            		var parentNo = JSON.parse(data).parentNo;
+            		console.log(data);
+            		
+            		// 일반 댓글
+            		if(depth=='0'){
+            			if(replysNum =='0'){
+            				var appendTexts = 'Replies' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span><span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>';
+            				$("#collapseOne").prev().children('a').text('');
+            				$("#collapseOne").prev().children('a').append(appendTexts);
+            				$(".collapseOne").children().remove();
+            			} else {
+            				var appendTexts = 'Replies' + '&nbsp;&nbsp;&nbsp;&nbsp;' + replysNum + '<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span><span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>';
+            				$("#collapseOne").prev().children('a').text('');
+            				$("#collapseOne").prev().children('a').append(appendTexts);
+            				$(thisbutton).parent().parent().parent().remove();
+            			}
+            		} else if(depth == 1){
+						if(replysNum == 0){
+							$("#comment-div"+ parentNo).next().remove();
+							$("#comment-div"+ parentNo).next().remove();
+            			} else {
+            				var appendTexts = '&nbsp;&nbsp;&nbsp;&nbsp;답글 ' + replysNum + '개 보기&nbsp;&nbsp;&nbsp;&nbsp;<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;</span><span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>';
+		    				$("#comment-div"+ parentNo).next().children('a').text('');
+		    				$("#comment-div"+ parentNo).next().children('a').append(appendTexts);
+		    				$(thisbutton).parent().parent().parent().remove();
+            			}
+            		}
+            		
+            	}
+        	});
+    		
+    	} else{
+    	    return;
+    	}
+    }
     
     function replyWrite(fbNo, commentNo, replySection, depth, replyCount){
 		var replyMessage = $(replySection).prev().val();
     	var secretCheck = "1";
+    	
+    	if(replyMessage==''){
+			alert("댓글내용을 입력하세요");
+			return ;
+		}
     	
     	// 공개 비공개 구분
     	if($(replySection).next().next().next().children('input').is(':checked')){
@@ -287,6 +339,7 @@
         	success:function(data){
         		var reply = JSON.parse(data).reply;
         		var appendStrings = '';
+        		$(replySection).prev().val('');
         		
         		if(JSON.parse(data).replysNum==1){
         			appendStrings +=	'<h7><a role="button" class="" aria-expanded="" aria-controls="collapseTwo' + commentNo + '" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo' + commentNo + '" onClick="replyList('+ fbNo + ', ' + commentNo + ', this);" >&nbsp;&nbsp;&nbsp;&nbsp;답글 ' + JSON.parse(data).replysNum + '개 보기&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -317,7 +370,7 @@
 				
 				var id = '<c:out value="${id}"/>';
 				if(reply.commentWriter == id){
-					appendStrings += 			'&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span><br>';
+					appendStrings += 			'&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="deleteReply('+ reply.commentNo +', this);">삭제</span><br>';
 				}
 				
 				appendStrings += 				'<div class="col-10" style="display:inline-block;">'+ reply.comments +'</div>';
@@ -392,13 +445,18 @@
     /* 
 		일반 댓글 작성
 	*/
-	function writeComment(fbNo, id){
+	function writeComment(fbNo, id, buttonThis){
 	
 		if($("#commentSecretCheck").is(':checked')){
 			 $("#commentSecret").attr("value", "1");
 		 } else {
 			 $("#commentSecret").attr("value", "0");
 		 }
+		
+		if($(buttonThis).prev().val()==''){
+			alert("댓글내용을 입력하세요");
+			return ;
+		}
 	
 		$.ajax({
 			type: "post",
@@ -412,7 +470,6 @@
 				$("#collapseOne").prev().children('a').text('');
 				$("#collapseOne").prev().children('a').append(replyNums);
 				
-				let collapseOne = $("#collapseOne").children(".collapseOne");
 				var newComment = '<div class="row">';
 				newComment +=		'<div class="col-12" style="margin-top : 30px;">';
 				newComment += 			'<div class="text" >';
@@ -435,7 +492,7 @@
 				}
 			
 				if(comment.commentWriter == id){
-					newComment += '&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span><br>';
+					newComment += '&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="deleteReply('+ comment.commentNo +', this);">삭제</span><br>';
 				}
 			
 				newComment += '<div class="col-10" style="display:inline-block;">' + comment.comments + '</div>';
@@ -462,7 +519,8 @@
 				newComment += 	'</div>';
 				newComment += '</div>';
 			
-				collapseOne.append(newComment);
+				$(".collapseOne").append(newComment);
+				$(buttonThis).prev().val('');
 			}
 		});
 	}
@@ -501,7 +559,7 @@
         				
         				var id = '<c:out value="${id}"/>';
         				if(replies[i].commentWriter == id){
-        					appendLists += 			'&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span><br>';
+        					appendLists += 			'&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="deleteReply('+ replies[i].commentNo +', this);">삭제</span><br>';
         				}
         				
         				appendLists += 				'<div class="col-10" style="display:inline-block;">'+ replies[i].comments +'</div>';
