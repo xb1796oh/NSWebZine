@@ -60,5 +60,15 @@
 	<select id="selectReplyList" parameterType="map" resultType="com.nds.webzine.dto.Comments" >
 		select commentNo, fbNo, parentCommentNo, commentWriter, comments, secret, replyCount, DATE_FORMAT(recordDate, '%Y-%m-%d %H:%i') recordDate, replyDepth, replyNo, modification from comments where fbNo=#{fbNo } and parentCommentNo=#{parentCommentNo }
 	</select>
+	
+	<!-- 댓글 수 가져오기 -->
+	<select id="selectCommentNumByFbNo" parameterType="int" resultType="Integer" >
+		select count(*) from comments where fbNo=#{fbNo } and replyDepth=0
+	</select>
+	
+	<!-- 대댓글 수 가져오기 -->
+	<select id="selectReplyNumByCommentNo" parameterType="int" resultType="Integer" >
+		select replyCount from comments where commentNo=#{parentCommentNo }
+	</select>
 
 </mapper>

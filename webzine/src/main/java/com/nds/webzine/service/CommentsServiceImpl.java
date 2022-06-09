@@ -94,7 +94,17 @@ public class CommentsServiceImpl implements CommentsService {
 		return commentDAO.selectReplyList(replySort);
 	}
 
+	@Override
+	public Integer selectCommentNumByFbNo(int fbNo) throws Exception {
+		return commentDAO.selectCommentNumByFbNo(fbNo);
+	}
 
+	@Override
+	public Integer selectReplyNumByCommentNo(int parentCommentNo) throws Exception {
+		return commentDAO.selectReplyNumByCommentNo(parentCommentNo);
+	}
+
+	
 
 	
 

@@ -21,6 +21,8 @@ public interface CommentDAO {
 	public void insertReply(Comments comment) throws Exception;
 	public void updateReplyCount(Map<String, Object> update) throws Exception;
 	public List<Comments> selectReplyList(Map<String, Object> replyMap) throws Exception;
+	public Integer selectCommentNumByFbNo(int fbNo) throws Exception;
+	public Integer selectReplyNumByCommentNo(int parentCommentNo) throws Exception;
 	
 	/*
 	public double subscribedRatio() throws Exception;

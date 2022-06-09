@@ -11,4 +11,6 @@ public interface CommentsService {
 	
 	public Integer createReply(Comments comment) throws Exception; 
 	public List<Comments> replyList(int fbNo, int parentCommentNo) throws Exception; 
+	public Integer selectCommentNumByFbNo(int fbNo) throws Exception; 
+	public Integer selectReplyNumByCommentNo(int parentCommentNo) throws Exception; 
 }

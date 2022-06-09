@@ -196,7 +196,7 @@
                                 				<c:if test="${comment.secret eq false }"><h5 style="padding-top:5px; display:inline-block;"><img style="width:30px; " src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">${comment.commentWriter }</h5></c:if>
                                 				&nbsp;&nbsp;&nbsp;&nbsp;<span>${comment.recordDate }</span>
                                 				<c:if test="${comment.modification eq true}">(수정됨)</c:if>
-                                				<c:if test="${writer eq id}">&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span></c:if><br>
+                                				<c:if test="${writer eq id}">&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="alert('수정');">수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span onClick="alert('삭제?');">삭제</span></c:if><br>
                                 				<div class="col-10" style="display:inline-block;">${comment.comments }</div>
                                 				<div class="col-1" id="comment${comment.commentNo}" style="display:inline-block;  float:right; text-align:right;">
                                 					<a role="button" class="" aria-expanded="true" aria-controls="comment-div${comment.commentNo }" data-toggle="collapse" data-parent="#comment${comment.commentNo }" href="#comment-div${comment.commentNo }">답글</a>
@@ -209,7 +209,7 @@
                                 									<div class="text">
                                 										<h5>${id }</h5>
                                             							<textarea name="message" class="form-control" id="replyMessage" cols="30" rows="3" placeholder="Message"></textarea>
-                                            							<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="button" onClick='replyWrite(${comment.fbNo}, ${comment.commentNo }, this, ${comment.replyDepth })'>답글</button>
+                                            							<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="button" onClick='replyWrite(${comment.fbNo}, ${comment.commentNo }, this, ${comment.replyDepth }, ${comment.replyCount })'>답글</button>
                                          								<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>
                                          								<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>
 																		<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>
@@ -264,80 +264,78 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
     
-    function replyList(fbNo, commentNo, thisSec){
-    	// close
-    	if($("#collapseTwo" + commentNo).attr("class").match("show")){
-    		alert("close");
-    		$(".collapseTwo" + commentNo).children().remove();
-    	} 
-    	// open
-    	else {
-    		alert("open");
-    		$.ajax({
-    			type: "post",
-        		url: "/showReplyList",
-        		data: {"fbNo": fbNo, "parentCommentNo": commentNo },
-        		dataType: "text",
-        		success:function(data){
-        			var replies = JSON.parse(data);
-        			var appendLists = '';
-        			
-        			for(var i=0; i<replies.length; i++){
-        				console.log(replies[i]);
-        				appendLists +=	'<div class="row">';
-        				appendLists += 		'<div class="col-12" style="margin-top : 30px;">';
-        				appendLists += 			'<div class="text" >';
-        				
-        				if(replies[i].secret == true){
-        					appendLists += 			'<h5 style="display:inline-block;"><img src="https://mblogthumb-phinf.pstatic.net/20150831_112/koowq_1441021325694Id6se_PNG/%C0%DA%B9%B0%BC%E8_%BF%F8%C7%FC_%BE%C6%C0%CC%C4%DC-02.png?type=w420" alt="" style="width:30px; ">&nbsp;&nbsp;*******</h5>';
-        				} else if(replies[i].secret == false){
-        					appendLists += 			'<h5 style="padding-top:5px; display:inline-block;"><img style="width:30px; " src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">'+ replies[i].commentWriter +'</h5>';
-        				}
-        				appendLists += 				'&nbsp;&nbsp;&nbsp;&nbsp;<span>'+ replies[i].recordDate + '</span>';
-        				
-        				if(replies[i].modification == true){
-        					appendLists += 			'(수정됨)';
-        				} 
-        				
-        				var id = '<c:out value="${id}"/>';
-        				if(replies[i].commentWriter == id){
-        					appendLists += 			'&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span><br>';
-        				}
-        				
-        				appendLists += 				'<div class="col-10" style="display:inline-block;">'+ replies[i].comments +'</div>';
-        				appendLists += 				'<div class="col-1" id="reply' + replies[i].commentNo + '" style="display:inline-block;  float:right; text-align:right;">';
-        				appendLists += 					'<a role="button" class="" aria-expanded="true" aria-controls="reply-div' + replies[i].commentNo + '" data-toggle="collapse" data-parent="#reply' + replies[i].commentNo + '" href="#reply-div' + replies[i].commentNo + '">reply</a>';
-        				appendLists += 				'</div>';
-        				appendLists += 			'</div>';
-        				appendLists += 			'<div class="panel single-accordion">';
-        				appendLists += 				'<div id="reply-div' + replies[i].commentNo +' class="accordion-content collapse" >';
-        				appendLists += 					'<div class="col-12" style="outline: solid gray; margin-top:30px; margin-bottom: 30px;">';
-        				appendLists += 						'<div class="row">';
-        				appendLists += 							'<div class="col-12" style="padding-top: 35px; padding-bottom: 20px; margin:0 auto;">';
-        				appendLists += 								'<div class="text">';
-        				appendLists += 									'<h5>'+ id +'</h5>';
-        				appendLists += 									'<textarea name="message" class="form-control" id="replyMessage" cols="30" rows="3" placeholder="Message"></textarea>';
-        				appendLists += 									'<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="button" >답글</button>';
-        				appendLists += 									'<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>';
-        				appendLists += 									'<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>';
-        				appendLists += 									'<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>';
-        				appendLists += 								'</div>';
-        				appendLists += 							'</div>';
-        				appendLists += 						'</div>';
-        				appendLists += 					'</div>';
-        				appendLists += 				'</div>';
-        				appendLists += 			'</div>';
-        				appendLists += 		'</div>';
-        				appendLists += 	'</div>';
-        				
-        				$(".collapseTwo" + commentNo).append(appendLists);
-        			}
+    
+    function replyWrite(fbNo, commentNo, replySection, depth, replyCount){
+		var replyMessage = $(replySection).prev().val();
+    	var secretCheck = "1";
+    	
+    	// 공개 비공개 구분
+    	if($(replySection).next().next().next().children('input').is(':checked')){
+    		secretCheck = "1";
+		} else {
+			secretCheck = "0";
+		}
+    	
+    	// 일반 대댓글 depth 설정
+    	depth=1;
+    	
+    	$.ajax({
+    		type: "post",
+    		url: "/writeReply",
+    		data: {"fbNo": fbNo, "parentCommentNo": commentNo, "comments": replyMessage, "secret": secretCheck, "replyDepth": depth },
+        	dataType: "text",
+        	success:function(data){
+        		var reply = JSON.parse(data).reply;
+        		var appendStrings = '';
+        		
+        		if(JSON.parse(data).replysNum==1){
+        			appendStrings +=	'<h7><a role="button" class="" aria-expanded="" aria-controls="collapseTwo' + commentNo + '" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo' + commentNo + '" onClick="replyList('+ fbNo + ', ' + commentNo + ', this);" >&nbsp;&nbsp;&nbsp;&nbsp;답글 ' + JSON.parse(data).replysNum + '개 보기&nbsp;&nbsp;&nbsp;&nbsp;';
+        			appendStrings +=		'<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>';
+        			appendStrings +=		'<span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>';
+        			appendStrings +=		'</a></h7>';
+        			appendStrings +=	'<div id="collapseTwo' + commentNo + '" class="accordion-content collapse" >';
+        			appendStrings +=		'<div class="col-11 collapseTwo' + commentNo + '" style="margin: auto;"></div>';
+        			appendStrings +=	'</div>'
+        			$("#comment-div"+commentNo).parent().append(appendStrings);
         		}
-    		});
-    	}
-    }
-    
-    
+               	
+        		appendStrings = '';
+        		appendStrings +=	'<div class="row">';
+        		appendStrings += 		'<div class="col-12" style="margin-top : 30px;">';
+        		appendStrings += 			'<div class="text" >';
+				
+				if(reply.secret == true){
+					appendStrings += 			'<h5 style="display:inline-block;"><img src="https://mblogthumb-phinf.pstatic.net/20150831_112/koowq_1441021325694Id6se_PNG/%C0%DA%B9%B0%BC%E8_%BF%F8%C7%FC_%BE%C6%C0%CC%C4%DC-02.png?type=w420" alt="" style="width:30px; ">&nbsp;&nbsp;*******</h5>';
+				} else if(reply.secret == false){
+					appendStrings += 			'<h5 style="padding-top:5px; display:inline-block;"><img style="width:30px; " src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">'+ reply.commentWriter +'</h5>';
+				}
+				appendStrings += 				'&nbsp;&nbsp;&nbsp;&nbsp;<span>'+ reply.recordDate + '</span>';
+				
+				if(reply.modification == true){
+					appendStrings += 			'(수정됨)';
+				} 
+				
+				var id = '<c:out value="${id}"/>';
+				if(reply.commentWriter == id){
+					appendStrings += 			'&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span><br>';
+				}
+				
+				appendStrings += 				'<div class="col-10" style="display:inline-block;">'+ reply.comments +'</div>';
+				appendStrings += 			'</div>';
+				appendStrings += 		'</div>';
+				appendStrings += 	'</div>';
+				
+				$(".collapseTwo"+ commentNo).append(appendStrings);
+				$("#comment-div"+ commentNo).removeClass('show');
+				
+				var replyNums = '&nbsp;&nbsp;&nbsp;&nbsp;답글 ' + JSON.parse(data).replysNum + '개 보기&nbsp;&nbsp;&nbsp;&nbsp;<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;</span><span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>';
+				$("#comment-div"+ commentNo).next().children('a').text('');
+				$("#comment-div"+ commentNo).next().children('a').append(replyNums);
+        	}
+    	});
+    	
+    	
+	}
     
     $(function(){
 		ClassicEditor.create(document.querySelector("#content"))
@@ -408,7 +406,11 @@
 			data: {"fbNo": fbNo, "commentWriter": id, "comments": $("#comments").val(), "secret": $("#commentSecret").val()},
 			dataType: "text",
 			success:function(data){
-				var comment = JSON.parse(data);
+				var comment = JSON.parse(data).comment;
+				
+				var replyNums = 'Replies' + '&nbsp;&nbsp;&nbsp;&nbsp;' + JSON.parse(data).commentNum + '<span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span><span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>';
+				$("#collapseOne").prev().children('a').text('');
+				$("#collapseOne").prev().children('a').append(replyNums);
 				
 				let collapseOne = $("#collapseOne").children(".collapseOne");
 				var newComment = '<div class="row">';
@@ -448,7 +450,7 @@
 				newComment += 						'<div class="text">';
 				newComment += 							'<h5>'+ id +'</h5>';
 				newComment += 							'<textarea name="message" class="form-control" id="replyMessage" cols="30" rows="3" placeholder="Message"></textarea>';
-				newComment += 							'<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="button" onClick="replyWrite('+ comment.fbNo +',' + comment.commentNo +', this, ' + comment.replyDepth +')">답글</button>';
+				newComment += 							'<button style="float:right; margin-left:10px; margin-top:8px;" class="btn" type="button" onClick="replyWrite('+ comment.fbNo +',' + comment.commentNo +', this, ' + comment.replyDepth +', ' + comment.replyCount+')">답글</button>';
 				newComment += 							'<button style="float:right; margin-top:8px;" class="btn" type="submit">취소</button>';
 				newComment += 							'<div class="m-2" style="vertical-align:top; margin-left:5px; padding-right:10px; float:right; display:inline-block; padding-top:10px;">글쓴이 비공개</div>';
 				newComment += 							'<div class="m-2" style="display:inline-block; float:right; padding-top:10px;"><input type="checkbox" id="secretCheck" style="width:20px; height:20px;" checked></div>';
@@ -465,6 +467,56 @@
 		});
 	}
     
+	function replyList(fbNo, commentNo, thisSec){
+		
+		$(".collapseTwo" + commentNo).children().remove();
+    	if($("#collapseTwo" + commentNo).attr("class").match("show")){	// close
+    		$(".collapseTwo" + commentNo).children().remove();
+    	} 
+    	else {	// open
+    		$.ajax({
+    			type: "post",
+        		url: "/showReplyList",
+        		data: {"fbNo": fbNo, "parentCommentNo": commentNo },
+        		dataType: "text",
+        		success:function(data){
+        			var replies = JSON.parse(data);
+        			
+        			for(var i=0; i<replies.length; i++){
+        				var appendLists = '';
+        				appendLists +=	'<div class="row">';
+        				appendLists += 		'<div class="col-12" style="margin-top : 30px;">';
+        				appendLists += 			'<div class="text" >';
+        				
+        				if(replies[i].secret == true){
+        					appendLists += 			'<h5 style="display:inline-block;"><img src="https://mblogthumb-phinf.pstatic.net/20150831_112/koowq_1441021325694Id6se_PNG/%C0%DA%B9%B0%BC%E8_%BF%F8%C7%FC_%BE%C6%C0%CC%C4%DC-02.png?type=w420" alt="" style="width:30px; ">&nbsp;&nbsp;*******</h5>';
+        				} else if(replies[i].secret == false){
+        					appendLists += 			'<h5 style="padding-top:5px; display:inline-block;"><img style="width:30px; " src="https://louisville.edu/enrollmentmanagement/images/person-icon/image" alt="">'+ replies[i].commentWriter +'</h5>';
+        				}
+        				appendLists += 				'&nbsp;&nbsp;&nbsp;&nbsp;<span>'+ replies[i].recordDate + '</span>';
+        				
+        				if(replies[i].modification == true){
+        					appendLists += 			'(수정됨)';
+        				} 
+        				
+        				var id = '<c:out value="${id}"/>';
+        				if(replies[i].commentWriter == id){
+        					appendLists += 			'&nbsp;&nbsp;&nbsp;&nbsp;<span>수정</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>삭제</span><br>';
+        				}
+        				
+        				appendLists += 				'<div class="col-10" style="display:inline-block;">'+ replies[i].comments +'</div>';
+        				appendLists += 			'</div>';
+        				appendLists += 		'</div>';
+        				appendLists += 	'</div>';
+        				
+        				$(".collapseTwo" + commentNo).append(appendLists);
+        			}
+        		}
+    		});
+    	}
+    }
+	
+	
 
     
     

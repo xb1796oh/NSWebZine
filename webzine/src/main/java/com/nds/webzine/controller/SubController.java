@@ -1,6 +1,8 @@
 package com.nds.webzine.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,27 +28,35 @@ public class SubController {
 	
 	@ResponseBody
 	@PostMapping(value="/writeComment")
-	public Comments writeComment(@ModelAttribute Comments comment, Model model) {
+	public Map<String, Object> writeComment(@ModelAttribute Comments comment, Model model) {
 		
-		Comments result = null;
+		Map<String, Object> result = new HashMap<>();
+		Comments comm = null;
 		Integer commentNo = null;
+		Integer commentsNum = null;
 		
 		try {
 			commentNo = commentService.createComment(comment);
-			result = commentService.seletCommentByNo(commentNo);
+			comm = commentService.seletCommentByNo(commentNo);
+			commentsNum = commentService.selectCommentNumByFbNo(comment.getFbNo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		result.put("comment", comm);
+		result.put("commentNum", commentsNum);
 		
 		return result;
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/writeReply")
-	public Comments writeReply(@ModelAttribute Comments comment, Model model, HttpServletRequest request) {
+	public Map<String, Object> writeReply(@ModelAttribute Comments comment, Model model, HttpServletRequest request) {
 		
-		Comments result = null;
+		Map<String, Object> result = new HashMap<>();
+		Comments reply = null;
 		Integer commentNo = null;
+		Integer replysNum = null;
 		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
@@ -54,10 +64,14 @@ public class SubController {
 		
 		try {
 			commentNo = commentService.createReply(comment);
-			result = commentService.seletCommentByNo(commentNo);
+			reply = commentService.seletCommentByNo(commentNo);
+			replysNum = commentService.selectReplyNumByCommentNo(comment.getParentCommentNo());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		result.put("reply", reply);
+		result.put("replysNum", replysNum);
 		
 		return result;
 	}
